@@ -1,0 +1,13 @@
+wp-content/debug.log
+wp-content/*.log
+*.log
+wp-content/ai1wm-backups/
+wp-content/uploads.zip
+*.wpress
+*.zip
+*.tar.gz
+transformacion-digital/assets/pdf/brochure-ehunting.pdf
+wp-config.php
+.env
+.DS_Store
+node_modules/
