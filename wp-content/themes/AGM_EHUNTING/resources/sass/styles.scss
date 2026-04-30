@@ -1,0 +1,2060 @@
+// Importa los parciales modernos del tema.
+// Debajo permanecen estilos legacy todavía en uso.
+@import "partials/theme-layout";
+@import "partials/theme-hero";
+@import "partials/theme-cards";
+@import "partials/theme-home";
+@import "partials/theme-home-sections";
+@import "partials/theme-contact";
+
+/* Estilos AGM */
+
+// Home legacy:
+// video, banners, overlays y botones de portada antiguos.
+.que-hacemos-imagen {
+  @media (max-width: 768px) {
+    padding-top: 70px;
+  }
+}
+.carousel-home {
+  text-align: center;
+  position: relative;
+  top: -5px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 10;
+  }
+
+  &.mensajes {
+    .carousel {
+      max-height: 180px;
+    }
+
+    .carousel-item {
+      width: 100%;
+      max-height: 180px;
+
+      img {
+        height: 100%;
+        width: auto;
+        margin: 0 auto;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: none;
+      }
+    }
+  }
+}
+
+.banner {
+  height: 220px;
+  position: relative;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+    width: auto;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: none;
+  }
+}
+
+.timeline-Footer {
+  display: none !important;
+}
+#slide-out {
+  width: fit-content !important;
+}
+.capa {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 111111111;
+}
+.boton-conversemos {
+  //text-transform: capitalize !important;
+  /* border: solid 1px; */
+  line-height: 0;
+  padding: 15px 22px;
+  position: relative;
+  z-index: 100;
+  margin-top: 15px;
+  background: #d05a27 !important;
+}
+.w-80 {
+  width: 80% !important;
+}
+.carrusel-de-video {
+  height: auto !important;
+  top: 50px !important;
+  opacity: 1 !important;
+}
+.video-desc {
+  text-align: center !important;
+  color: black !important;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0 !important;
+    font-size: 13px !important;
+    color: black !important;
+    font-weight: bold;
+  }
+  p {
+    font-size: 13px !important;
+    text-align: center !important;
+    margin-top: 2px !important;
+  }
+}
+@font-face {
+  font-family: Muli;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Muli Regular"), local("Muli-Regular"),
+    url(https://fonts.gstatic.com/s/muli/v13/7Auwp_0qiz-afT3GLQjUwkQ1OQ.woff2)
+      format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+
+@font-face {
+  font-family: Muli;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Muli Regular"), local("Muli-Regular"),
+    url(https://fonts.gstatic.com/s/muli/v13/7Auwp_0qiz-afTzGLQjUwkQ1OQ.woff2)
+      format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: Muli;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Muli Regular"), local("Muli-Regular"),
+    url(https://fonts.gstatic.com/s/muli/v13/7Auwp_0qiz-afTLGLQjUwkQ.woff2)
+      format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Material Icons";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2)
+    format("woff2");
+}
+
+// Utilidades globales, iconografía y helpers mobile.
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+
+// Header legacy, estados de sticky y ajustes generales de interacción.
+.mobile-que-hacemos {
+  max-width: 95%;
+  border-radius: 20px;
+  margin: 0 auto;
+}
+
+.headerSticky {
+  &.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999999999999;
+    background: white;
+    height: 100px;
+  }
+}
+
+.ver-mas {
+  height: 95px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.comotrabajamos-mobile {
+  border-radius: 20px;
+  margin: 0 auto;
+}
+
+blockquote {
+  border-left: 5px solid transparent !important;
+}
+
+.banderas .col {
+  padding: 0 3px !important;
+}
+
+.hidden-element {
+  display: none;
+}
+
+.tap-target-origin {
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: 10002;
+  position: absolute !important;
+}
+
+.tap-target-origin:not(.btn):not(.btn-large):not(.btn-small),
+.tap-target-origin:not(.btn):not(.btn-large):not(.btn-small):hover {
+  background: none;
+}
+@media only screen and (max-width: 768px) {
+  .banderas {
+    top: -95px !important;
+  }
+  .logo-y-banderas {
+    width: 80% !important;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .brand-logo {
+    left: 35% !important;
+  }
+  .banderas {
+    top: -95px !important;
+    img {
+      width: 20px !important;
+    }
+  }
+
+  .tap-target,
+  .tap-target-wrapper {
+    width: 600px;
+    height: 600px;
+  }
+}
+
+// Componentes heredados de datepicker/timepicker de Materialize.
+.pulse {
+  overflow: visible;
+  position: relative;
+}
+
+.pulse::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: inherit;
+  border-radius: inherit;
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s, -webkit-transform 0.3s;
+  -webkit-animation: pulse-animation 1s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  animation: pulse-animation 1s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  z-index: -1;
+}
+
+@-webkit-keyframes pulse-animation {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0;
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+  }
+}
+
+@keyframes pulse-animation {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0;
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+  }
+}
+
+.datepicker-modal {
+  max-width: 325px;
+  min-width: 300px;
+  max-height: none;
+}
+
+.datepicker-container.modal-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 0;
+}
+
+.datepicker-controls {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  width: 280px;
+  margin: 0 auto;
+}
+
+.datepicker-controls .selects-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.datepicker-controls .select-wrapper input {
+  border-bottom: none;
+  text-align: center;
+  margin: 0;
+}
+
+.datepicker-controls .select-wrapper input:focus {
+  border-bottom: none;
+}
+
+.datepicker-controls .select-wrapper .caret {
+  display: none;
+}
+
+.datepicker-controls .select-year input {
+  width: 50px;
+}
+
+.datepicker-controls .select-month input {
+  width: 70px;
+}
+
+.month-prev,
+.month-next {
+  margin-top: 4px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.datepicker-date-display {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 auto;
+  -ms-flex: 1 auto;
+  flex: 1 auto;
+  background-color: #26a69a;
+  color: #fff;
+  padding: 20px 22px;
+  font-weight: 500;
+}
+
+.datepicker-date-display .year-text {
+  display: block;
+  font-size: 1.5rem;
+  line-height: 25px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.datepicker-date-display .date-text {
+  display: block;
+  font-size: 2.8rem;
+  line-height: 47px;
+  font-weight: 500;
+}
+
+.datepicker-calendar-container {
+  -webkit-box-flex: 2.5;
+  -webkit-flex: 2.5 auto;
+  -ms-flex: 2.5 auto;
+  flex: 2.5 auto;
+}
+
+.datepicker-table {
+  width: 280px;
+  font-size: 1rem;
+  margin: 0 auto;
+}
+
+.datepicker-table thead {
+  border-bottom: none;
+}
+
+.datepicker-table th {
+  padding: 10px 5px;
+  text-align: center;
+}
+
+.datepicker-table tr {
+  border: none;
+}
+
+.datepicker-table abbr {
+  text-decoration: none;
+  color: #999;
+}
+
+.datepicker-table td {
+  border-radius: 50%;
+  padding: 0;
+}
+
+.datepicker-table td.is-today {
+  color: #26a69a;
+}
+
+.datepicker-table td.is-selected {
+  background-color: #26a69a;
+  color: #fff;
+}
+
+.datepicker-table td.is-outside-current-month,
+.datepicker-table td.is-disabled {
+  color: rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.datepicker-day-button {
+  background-color: transparent;
+  border: none;
+  line-height: 38px;
+  display: block;
+  width: 100%;
+  border-radius: 50%;
+  padding: 0 5px;
+  cursor: pointer;
+  color: inherit;
+}
+
+.datepicker-day-button:focus {
+  background-color: rgba(43, 161, 150, 0.25);
+}
+
+.datepicker-footer {
+  width: 280px;
+  margin: 0 auto;
+  padding-bottom: 5px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.datepicker-cancel,
+.datepicker-clear,
+.datepicker-today,
+.datepicker-done {
+  color: #26a69a;
+  padding: 0 1rem;
+}
+
+.datepicker-clear {
+  color: #f44336;
+}
+
+@media only screen and (min-width: 601px) {
+  .datepicker-modal {
+    max-width: 625px;
+  }
+
+  .datepicker-container.modal-content {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+
+  .datepicker-date-display {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 1 270px;
+    -ms-flex: 0 1 270px;
+    flex: 0 1 270px;
+  }
+
+  .datepicker-controls,
+  .datepicker-table,
+  .datepicker-footer {
+    width: 320px;
+  }
+
+  .datepicker-day-button {
+    line-height: 44px;
+  }
+}
+
+.timepicker-modal {
+  max-width: 325px;
+  max-height: none;
+}
+
+.timepicker-container.modal-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 0;
+}
+
+.text-primary {
+  color: #fff;
+}
+
+.timepicker-digital-display {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 auto;
+  -ms-flex: 1 auto;
+  flex: 1 auto;
+  background-color: #26a69a;
+  padding: 10px;
+  font-weight: 300;
+}
+
+.timepicker-text-container {
+  font-size: 4rem;
+  font-weight: bold;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.timepicker-span-hours,
+.timepicker-span-minutes,
+.timepicker-span-am-pm div {
+  cursor: pointer;
+}
+
+.timepicker-span-hours {
+  margin-right: 3px;
+}
+
+.timepicker-span-minutes {
+  margin-left: 3px;
+}
+
+.timepicker-display-am-pm {
+  font-size: 1.3rem;
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  font-weight: 400;
+}
+
+.timepicker-analog-display {
+  -webkit-box-flex: 2.5;
+  -webkit-flex: 2.5 auto;
+  -ms-flex: 2.5 auto;
+  flex: 2.5 auto;
+}
+
+.timepicker-plate {
+  background-color: #eee;
+  border-radius: 50%;
+  width: 270px;
+  height: 270px;
+  overflow: visible;
+  position: relative;
+  margin: auto;
+  margin-top: 25px;
+  margin-bottom: 5px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.timepicker-canvas,
+.timepicker-dial {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.timepicker-minutes {
+  visibility: hidden;
+}
+
+.timepicker-tick {
+  border-radius: 50%;
+  color: rgba(0, 0, 0, 0.87);
+  line-height: 40px;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.timepicker-tick.active,
+.timepicker-tick:hover {
+  background-color: rgba(38, 166, 154, 0.25);
+}
+
+.timepicker-dial {
+  -webkit-transition: opacity 350ms, -webkit-transform 350ms;
+  transition: opacity 350ms, -webkit-transform 350ms;
+  transition: transform 350ms, opacity 350ms;
+  transition: transform 350ms, opacity 350ms, -webkit-transform 350ms;
+}
+
+.timepicker-dial-out {
+  opacity: 0;
+}
+
+.timepicker-dial-out.timepicker-hours {
+  -webkit-transform: scale(1.1, 1.1);
+  transform: scale(1.1, 1.1);
+}
+
+.timepicker-dial-out.timepicker-minutes {
+  -webkit-transform: scale(0.8, 0.8);
+  transform: scale(0.8, 0.8);
+}
+
+.timepicker-canvas {
+  -webkit-transition: opacity 175ms;
+  transition: opacity 175ms;
+}
+
+.timepicker-canvas line {
+  stroke: #26a69a;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.timepicker-canvas-out {
+  opacity: 0.25;
+}
+
+.timepicker-canvas-bearing {
+  stroke: none;
+  fill: #26a69a;
+}
+
+.timepicker-canvas-bg {
+  stroke: none;
+  fill: #26a69a;
+}
+
+.timepicker-footer {
+  margin: 0 auto;
+  padding: 5px 1rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.timepicker-clear {
+  color: #f44336;
+}
+
+.timepicker-close {
+  color: #26a69a;
+}
+
+.timepicker-clear,
+.timepicker-close {
+  padding: 0 20px;
+}
+
+@media only screen and (min-width: 601px) {
+  .timepicker-modal {
+    max-width: 600px;
+  }
+
+  .timepicker-container.modal-content {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+
+  .timepicker-text-container {
+    top: 32%;
+  }
+
+  .timepicker-display-am-pm {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    text-align: center;
+    margin-top: 1.2rem;
+  }
+}
+
+// Formularios, tarjetas y módulos compartidos del sitio.
+#formulariocontacto1 input,
+#formulariocontacto1 textarea {
+  color: #fff !important;
+}
+
+#main .card {
+  height: 524px !important;
+}
+
+main {
+  margin-top: 10px;
+}
+
+.current {
+  background: #ca3d00 !important;
+  margin: 0 10px;
+  text-decoration: none;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.5px;
+  -webkit-transition: background-color 0.2s ease-out;
+  transition: background-color 0.2s ease-out;
+  cursor: pointer;
+  border: none;
+  border-radius: 2px;
+  display: inline-block;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 16px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
+  margin: 0 auto;
+}
+
+.material-placeholder img {
+  width: 100%;
+}
+
+.timeline-InformationCircle-widgetParent {
+  background: #77abd2 !important;
+}
+
+.siguiente-anterior {
+  margin: 20px auto;
+  padding: 0 !important;
+}
+
+.boton-siguiente-anterior {
+  background: #d05a27 !important;
+  margin: 2px;
+}
+
+strong {
+  font-weight: 700;
+}
+
+.carousel-item img {
+  max-height: 100%;
+  height: 200px;
+}
+
+#contactanos {
+  margin-top: 90px;
+  z-index: 999999999999999999999 !important;
+}
+
+// Redes, footer, brochure, equipo y otros bloques reutilizados.
+.icono-social {
+  font-size: 25px;
+  margin: auto 5px;
+}
+
+.boton-contactenos {
+  width: 100px;
+  height: 100px;
+  background-color: #d05a27 !important;
+}
+
+.boton-contactenos i {
+  line-height: 100px !important;
+  font-size: 3rem;
+}
+
+.imagen-single-thumbnail-container {
+  width: 60%;
+}
+
+.main-single {
+  padding: 2rem 3rem !important;
+  text-align: justify;
+}
+
+.card .card-title {
+  font-size: 24px;
+  font-weight: 300;
+  padding: 32px 20px !important;
+}
+
+.subtitulo {
+  font-size: 1.6rem !important;
+}
+
+.textojustificado p {
+  text-align: justify !important;
+}
+
+.socialmediaheader {
+  display: inline-block;
+  line-height: 48px;
+  height: 40px;
+  float: right;
+}
+
+.socialmediaheader img {
+  margin: auto 5px;
+}
+
+.disenadopor {
+  margin: 0 auto auto auto;
+}
+
+.parallax-contenedor {
+  padding: 35px 0;
+  height: 350px;
+  position: relative;
+}
+
+.contenedor-brochure {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 11;
+  width: 90%;
+  max-width: 1230px;
+  margin: 0 auto;
+}
+
+.contenedor-brochure h3 {
+  max-width: 600px;
+}
+
+.botonytextobrochure {
+  padding: 15% 0 0 0 !important;
+  min-height: 200px !important;
+  position: relative;
+}
+
+.textofooter {
+  font-size: 16px;
+  margin-top: 0;
+}
+
+.contenedor-footer {
+  width: 90%;
+  margin: 0 auto;
+  border-right: 1px solid rgba(128, 128, 128, 0.2);
+  min-height: 160px;
+  max-width: 1230px;
+}
+
+.inputs-equipo {
+  width: 31.33%;
+  margin: 10px auto;
+  display: inline-block;
+}
+
+.inputs-equipo input {
+  margin-bottom: 10px;
+}
+
+// Contenedores estructurales, anclas de sección y layout base.
+.contenedor-logo-menu {
+  height: 100px;
+  width: 95%;
+  margin: 0 auto;
+  position: absolute;
+  top: 12px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 1232px;
+}
+
+#contacto label {
+  color: #fff;
+}
+
+#contacto input,
+#contacto textarea {
+  border-bottom: 1px solid #fff !important;
+}
+
+#comotrabajamos,
+#nuestrosservicios,
+#quehacemos,
+#seccioncontacto,
+#seccionequipo,
+#sobrenosotros {
+  display: block;
+  content: " ";
+  margin-top: -100px;
+  height: 100px;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#como-trabajamos .imagen,
+#que-hacemos .imagen,
+#seccion-blog .imagen,
+#seccion-nuestrosservicios .imagen,
+#sobre-nosotros .imagen {
+  margin-top: 25px;
+}
+
+#como-trabajamos,
+#que-hacemos,
+#sobre-nosotros {
+  display: flex;
+}
+
+.titulocomotrabajamos {
+  margin-left: 49%;
+}
+
+.container {
+  width: 90% !important;
+  max-width: 1230px;
+}
+
+.container.trabajamos {
+  @media (min-width: 600px) {
+    max-width: 670px;
+  }
+
+  .como-trabajamos1,
+  .como-trabajamos2 {
+    margin-top: 0;
+    border-radius: 20px;
+
+    @media (max-width: 600px) {
+      float: none;
+    }
+  }
+}
+
+body {
+  //font-family: 'Roboto Condensed', sans-serif;
+  font-family: henderson-bcg-sans, "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: black;
+}
+
+.contenedor-slider {
+  height: 100vh;
+}
+
+.post-titulo {
+  font-size: 3rem;
+}
+
+.wrapperheader {
+  height: 135px;
+  width: 100%;
+}
+
+p:nth-child(2) {
+  clear: both;
+}
+
+#contenido-footer-container {
+  overflow: hidden;
+  max-height: 160px;
+}
+
+.elemento-footer {
+  min-height: 160px !important;
+  padding: 3% 0 3% 0 !important;
+  border-left: 1px solid rgba(128, 128, 128, 0.2);
+  margin: auto auto;
+}
+
+a {
+  color: #ff9800;
+}
+
+.aligncenter {
+  clear: both;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 16px;
+}
+
+.alignright {
+  display: inline;
+  float: right;
+  margin-left: 1.5em;
+}
+
+.alignleft {
+  display: inline;
+  float: left;
+  margin-right: 1.5em;
+}
+
+#menu-principal > li {
+  position: relative;
+}
+li.main-menu-item {
+  &:hover {
+    height: 100px;
+    .dropdown-button {
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        width: 50%;
+        height: 3px;
+        background-color: #ff9800;
+        bottom: 5px;
+        left: 30%;
+        transform: translateX(-30%);
+      }
+    }
+    .dropdown-content {
+      display: block;
+      visibility: visible;
+      opacity: 1;
+      transform-origin: initial;
+      max-height: initial;
+      width: 250px;
+      box-shadow: 0 5px 10px black;
+    }
+  }
+}
+
+// Footer principal rediseñado con columnas de navegación, contacto y redes.
+.eh-footer {
+  background: #14254e !important;
+  color: #fff;
+  margin-top: 0 !important;
+}
+
+.eh-footer__inner {
+  width: min(100%, 1320px);
+  margin: 0 auto;
+  padding: 58px 24px 46px;
+  display: grid;
+  grid-template-columns: 280px 1fr 1.12fr .9fr .9fr;
+  gap: 34px;
+  align-items: start;
+}
+
+.eh-footer__brand {
+  display: flex;
+  align-items: flex-start;
+}
+
+.eh-footer__logo-link {
+  display: inline-flex;
+}
+
+.eh-footer__logo {
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  display: block;
+}
+
+.eh-footer__title {
+  margin: 0 0 20px;
+  color: #fff;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.eh-footer__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.eh-footer__list li + li {
+  margin-top: 14px;
+}
+
+.eh-footer__list a,
+.eh-footer__contact-link {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1rem;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.eh-footer__list a:hover,
+.eh-footer__contact-link:hover {
+  color: #fff;
+}
+
+.eh-footer__contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eh-footer__contact-icon {
+  color: #f2782f;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.eh-footer__socials {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.eh-footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+}
+
+.eh-footer__social-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+@media (max-width: 1100px) {
+  .eh-footer__inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .eh-footer__inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 42px 18px 36px;
+  }
+
+  .eh-footer__logo {
+    max-width: 210px;
+  }
+}
+.dropdown-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: top 0.3s ease-in !important;
+  top: 70px !important;
+  left: initial;
+  visibility: hidden;
+  display: block;
+}
+
+.contenedor-logo-menu > #menu-principal > li:hover ul {
+  max-height: 500px !important;
+  transition: all 0.3s ease-out !important;
+  opacity: 1;
+  visibility: visible !important;
+  z-index: 9999 !important;
+  display: block !important;
+  left: 13px !important;
+  top: 80px !important;
+  box-shadow: none !important;
+}
+
+.dropdown-content li {
+  min-height: 30px !important;
+}
+
+.contenedor-logo-menu > #menu-principal > li ul li a {
+  padding: 5px 16px !important;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// Tipografía base, separadores y menú principal legacy.
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+#como-trabajamos p,
+#que-hacemos li,
+#que-hacemos p,
+#seccion-blog p,
+#seccion-nuestrosservicios p,
+#sobre-nosotros p {
+  font-size: 1rem;
+  line-height: 25px;
+}
+
+.divider {
+  height: 2px !important;
+  overflow: hidden !important;
+  background-color: #ff9800 !important;
+  width: 100px !important;
+}
+
+.dropdown-content li a {
+  line-height: 2 !important;
+  color: #e52520;
+}
+
+#contenido-header {
+  height: 100px;
+}
+
+.menu-fixed {
+  color: #000;
+  line-height: 5;
+  text-shadow: none !important;
+}
+
+#menu-principal {
+  max-height: 100px;
+}
+
+#menu-principal li a,
+#menu-principal li i {
+  line-height: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0 5px;
+  color: #000;
+  font-family: Muli, sans-serif;
+  padding-left: 15px;
+}
+
+.dropdown-button .arrowdown {
+  margin: 20px 10px !important;
+}
+
+input:not([type]):focus:not([readonly]),
+input[type="date"]:not(.browser-default):focus:not([readonly]),
+input[type="datetime-local"]:not(.browser-default):focus:not([readonly]),
+input[type="datetime"]:not(.browser-default):focus:not([readonly]),
+input[type="email"]:not(.browser-default):focus:not([readonly]),
+input[type="number"]:not(.browser-default):focus:not([readonly]),
+input[type="password"]:not(.browser-default):focus:not([readonly]),
+input[type="search"]:not(.browser-default):focus:not([readonly]),
+input[type="tel"]:not(.browser-default):focus:not([readonly]),
+input[type="text"]:not(.browser-default):focus:not([readonly]),
+input[type="time"]:not(.browser-default):focus:not([readonly]),
+input[type="url"]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #ff9800 !important;
+  -webkit-box-shadow: 0 1px 0 0 #ff9800 !important;
+  box-shadow: 0 1px 0 0 #ff9800 !important;
+}
+
+// Top bar, formularios y cabecera textual del hero legacy.
+.boton-form {
+  background-color: #d05a27;
+}
+
+.widget-twitter-header {
+  background: #094587;
+  height: 35px;
+  border-radius: 5px 5px 0 0;
+  line-height: 40px;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.boton-brochure,
+.boton-brochure:focus,
+.boton-brochure:hover {
+  background: #d05a27;
+  position: absolute;
+  width: 230px;
+  top: 80%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.boton-form:focus,
+.boton-form:hover {
+  background-color: #d05a27;
+}
+
+.top-bar {
+  height: 40px;
+  width: 100%;
+  background-color: #d05a27;
+}
+
+.icono-top-bar {
+  font-size: 1.5rem !important;
+  vertical-align: top !important;
+  line-height: 40px !important;
+}
+
+.texto-top-bar {
+  margin: 0 20px 0 10px !important;
+  display: inline-block !important;
+  vertical-align: top !important;
+  line-height: 42px !important;
+  font-size: 0.9rem !important;
+}
+
+.top-bar a {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+.top-bar-container {
+  text-align: left;
+  padding: 0 10px;
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1232px;
+}
+
+// Hero legacy:
+// título, logo, botones y efectos decorativos antiguos.
+.contenedor-titulo {
+  margin: 0 auto;
+  width: 70%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 38%;
+  bottom: 0;
+}
+
+.letras0 {
+  position: absolute;
+  top: 8%;
+  right: 0;
+  left: 0;
+  font-size: 3.42rem !important;
+  margin-bottom: 5px;
+  text-shadow: 2px 2px 2px black;
+}
+
+.letras0 span {
+  font-size: 25px;
+}
+
+.letras1 {
+  font-size: 3.42rem !important;
+  margin-bottom: 5px;
+  font-size: 3.42rem !important;
+  margin-bottom: 5px;
+  text-shadow: 2px 2px 2px black;
+}
+
+.letras2 {
+  font-size: 1.6rem !important;
+  margin-top: 0;
+  padding: 15px;
+}
+
+.logo {
+  height: auto !important;
+  padding: 0;
+  width: 150px !important;
+}
+
+.brand-logo {
+  height: 100%;
+  transition: all 0.3s;
+  transform: scale3d(0, 0, 0);
+}
+
+.boton-email1 {
+  transition: all 0.3s;
+  transform: scale3d(0, 0, 0);
+}
+
+.boton-numero1 {
+  transition: all 0.3s;
+  transform: scale3d(0, 0, 0);
+  background: #e52520 !important;
+  color: #fff;
+}
+
+.aparece-logo {
+  transition: all 0.3s;
+  transform: scale3d(1, 1, 1);
+}
+
+.aparece {
+  transition: all 0.3s;
+  transform: scale3d(1, 1, 1);
+}
+
+.lista-madre {
+  display: table;
+}
+
+.lista-hija {
+  display: table-cell;
+  padding-right: 5px;
+}
+
+.k {
+  width: 150px;
+  height: 150px;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+}
+
+.k::after {
+  content: "";
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 3.5px solid rgba(255, 255, 255, 0.5);
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.k:hover::after {
+  transform: scale(1.13);
+  border-color: #43d409;
+  transition: transform 0.2s cubic-bezier(0.06, 0.59, 0.24, 1.55),
+    border-color 0.2s;
+}
+
+.slider .slides li .caption {
+  top: 35% !important;
+  bottom: 25% !important;
+}
+
+.bajada {
+  color: #4d92e9 !important;
+  padding: 10px;
+}
+
+.imagen-presentacion-servicio {
+  position: absolute;
+  bottom: 3%;
+  left: 0;
+  right: 0;
+  min-width: 0;
+  min-height: 0;
+  opacity: 1;
+  margin: 0 auto;
+  max-width: 1232px;
+}
+
+.servicio-hov {
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.27);
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+}
+
+.servicio-hov:hover {
+  color: #e52520;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+}
+
+.typer {
+  overflow: hidden;
+  border-right: 0.15em solid orange;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: 0.05em;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  max-width: 380px;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: orange;
+  }
+}
+
+.div-logo {
+  margin: 0 0 0 55px;
+  height: 100%;
+}
+
+h2 {
+  font-size: 35px !important;
+}
+
+h3 {
+  font-size: 25px !important;
+}
+
+h4 {
+  font-size: 22px !important;
+}
+
+h5 {
+  font-size: 19px !important;
+}
+
+// Navegación principal, menú móvil y estado fijo del header.
+nav {
+  height: 91px;
+}
+
+nav ul a:hover {
+  color: #03a9f4 !important;
+  background-color: transparent !important;
+}
+
+#menu-primary li {
+  line-height: 91px;
+}
+
+.boton-saber-mas {
+  background-color: #e52520 !important;
+}
+
+.boton-redondo {
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.boton-redondo:hover {
+  background-color: transparent;
+}
+
+.boton-redondo i {
+  line-height: 50px !important;
+  color: gray !important;
+}
+
+.fixed {
+  position: fixed !important;
+  top: 0;
+  background-color: #fff !important;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2) !important;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+.row {
+  margin-bottom: 0 !important;
+}
+.relative {
+  position: relative !important;
+}
+.founded {
+  position: absolute;
+  width: 100%;
+  left: 80px;
+  color: #000;
+  font-size: 12px;
+  bottom: 45px;
+}
+.paises {
+  .relative {
+    .direcciones {
+      position: absolute;
+      bottom: 15px;
+      left: 0;
+      right: 0;
+      margin: 0 auto !important;
+      width: fit-content;
+    }
+    a.btn-flat {
+      border: solid white 1px;
+      padding: 5%;
+      line-height: 0;
+      text-transform: initial !important;
+    }
+  }
+  .overlay {
+    &::before {
+      position: absolute;
+      content: "";
+      background: #2121216e;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#001d38", endColorstr="#99001d38", GradientType=1);
+    }
+  }
+}
+// Footer, sidenav y componentes auxiliares del tema.
+#agm-footer {
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+}
+
+#derechos {
+  background-color: #ff9800 !important;
+}
+
+#derechos a {
+  color: #fff !important;
+}
+
+.icono-porqueelegirnos {
+  border-radius: 50%;
+  background-color: #a1e088;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.sidenav-trigger {
+  margin: 18px !important;
+}
+
+.imagen-menu-movil {
+  height: 200px;
+  width: 100%;
+  position: relative;
+}
+
+.imagen-menu-movil a:hover {
+  color: transparent !important;
+  text-decoration: none;
+}
+
+form {
+  padding: 0 30px !important;
+}
+
+.change {
+  background-color: #a1e088 !important;
+}
+
+.waves-button-input {
+  color: #fff !important;
+}
+
+// Breakpoints generales del tema legacy.
+@media only screen and (max-width: 992px) {
+  .boton-brochure {
+    top: initial !important;
+  }
+
+  #formulariocontacto2 {
+    padding: 0 !important;
+  }
+
+  .top-bar {
+    display: none;
+  }
+
+  #inicio {
+    height: 100px;
+  }
+
+  .titulocomotrabajamos {
+    margin-left: initial;
+  }
+
+  .brand-logo {
+    transform: scale3d(0, 0, 0) translateX(-50%) !important;
+    -webkit-transform: scale3d(0, 0, 0) translateX(-50%) !important;
+  }
+
+  .aparece-logo {
+    transform: scale3d(1, 1, 1) translateX(-50%) !important;
+    -webkit-transform: scale3d(1, 1, 1) translateX(-50%) !important;
+  }
+}
+
+.clouds {
+  &::before {
+    position: absolute;
+    content: "";
+    background-image: linear-gradient(to right, #e7ebebc7 0%, #e7ebebc7 100%);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#001d38", endColorstr="#99001d38", GradientType=1);
+  }
+}
+
+@media only screen and (max-width: 855px) {
+  .inputs-equipo {
+    width: 48%;
+  }
+
+  .contenedor-titulo {
+    width: 100%;
+  }
+
+  #agm-footer {
+    background-size: auto 100%;
+  }
+}
+
+@media only screen and (max-height: 415px) {
+  .letras1 {
+    font-size: 3rem !important;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .contenedor-titulo {
+    top: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .boton-conversemos {
+    padding: 9px !important;
+    font-size: 11px !important;
+  }
+  .titulo-pagina {
+    font-size: 2.5rem !important;
+  }
+
+  .letras1 {
+    font-size: 1.5rem !important;
+  }
+
+  .thumbs-up {
+    width: 150px;
+    float: initial;
+  }
+
+  .logo {
+    width: auto;
+    max-width: initial !important;
+  }
+
+  .typer span {
+    font-size: 25px !important;
+  }
+
+  .typer {
+    font-size: 21px !important;
+    max-width: 292px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .contenedor-titulo {
+    top: 20%;
+  }
+
+  .p-movil-wom {
+    text-align: center !important;
+  }
+
+  .contenedor-logo-entrada {
+    text-align: center !important;
+  }
+
+  .wp-image-1715 {
+    float: initial !important;
+    margin: 0 auto !important;
+  }
+
+  .centrar-imagen-movil {
+    float: initial !important;
+    margin: 0 auto !important;
+  }
+
+  .post-titulo {
+    padding: 0 20px;
+  }
+
+  #como-trabajamos {
+    padding: 0 10px !important;
+  }
+
+  #seccion-nuestrosservicios {
+    padding: 35px 10px 0 10px !important;
+  }
+
+  .imagen-single-thumbnail-container {
+    width: 100%;
+  }
+
+  #como-trabajamos,
+  #que-hacemos,
+  #sobre-nosotros {
+    display: block;
+  }
+
+  .contenedor-brochure h3 {
+    text-align: center;
+  }
+
+  .parallax-contenedor {
+    height: 250px;
+  }
+
+  .botonytextobrochure {
+    padding: 7% 0 5% 0 !important;
+    min-height: initial !important;
+  }
+
+  .contenedor-footer {
+    width: 100%;
+  }
+
+  .inputs-equipo {
+    width: 99%;
+  }
+
+  #post1 .obras-en-home-inner {
+    height: 300px !important;
+  }
+
+  .container {
+    width: 100% !important;
+  }
+
+  .contenedor-slider {
+    height: 60vh;
+  }
+
+  .wrapperheader {
+    height: 135px;
+  }
+
+  .post-titulo {
+    font-size: 2rem;
+  }
+
+  #wpadminbar {
+    position: fixed;
+  }
+
+  .elemento-footer {
+    min-height: initial !important;
+  }
+
+  #contenido-footer-container {
+    overflow: hidden;
+    max-height: initial;
+  }
+
+  #contenido-header {
+    z-index: 111111111 !important;
+  }
+
+  .div-logo {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+
+  .fixed {
+    top: 0;
+  }
+
+  .sidenav-trigger {
+    margin: 18px 5px !important;
+  }
+}
+
+// Ajustes finales, flechas, carruseles y pequeños helpers visuales.
+html {
+  font-display: auto;
+}
+
+.arrowdown {
+  border: solid black !important;
+  border-width: 0 1px 1px 0 !important;
+  display: inline-block !important;
+  padding: 3px !important;
+  font-size: 5px !important;
+  height: 7px !important;
+  margin: 45px 10px !important;
+  transform: rotate(45deg) !important;
+  -webkit-transform: rotate(45deg) !important;
+  font-weight: 400 !important;
+}
+
+.imagen-icono-top-bar {
+  width: 18px !important;
+  height: 18px !important;
+  max-width: initial !important;
+  margin-top: 1% !important;
+}
+
+.linkedinequipo svg {
+  width: 22px;
+  height: 22px;
+}
+
+.linkedinequipo svg path {
+  fill: #ff981a;
+}
+
+.justify-align {
+  text-align: justify !important;
+}
+.row-mapa {
+  margin-bottom: 30px !important;
+  margin-top: 30px !important;
+}
+
+.flecha-derecha-container {
+  position: absolute;
+  right: 5px;
+  top: 45%;
+  z-index: 100;
+  line-height: 1;
+  .flechaderecha {
+    border: solid #ff9800;
+    border-width: 0 5px 5px 0;
+    display: inline-block;
+    padding: 6px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    position: relative;
+    left: -3px;
+  }
+}
+
+.flecha-izquierda-container {
+  line-height: 1;
+  position: absolute;
+  left: 5px;
+  top: 45%;
+  z-index: 100;
+  .flechaizquierda {
+    border: solid #ff9800;
+    border-width: 0 5px 5px 0;
+    display: inline-block;
+    padding: 6px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    position: relative;
+    left: 3px;
+  }
+}
+
+.carousel-videos .indicators {
+  bottom: 8%;
+}
+
+.carousel-videos .indicators .indicator-item.active {
+  background-color: #fb9803;
+}
+
+.carousel-videos .indicators .indicator-item {
+  background-color: rgba(251, 152, 3, 0.44);
+}
+
+.figura-carousel-videos {
+  margin: 0 !important;
+}
+
+.carousel-videos {
+  margin-top: -80px;
+}

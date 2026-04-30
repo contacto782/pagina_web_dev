@@ -1,0 +1,363 @@
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+        background: #e20a16 !important;
+        background-repeat: round;
+
+}
+
+html {
+
+}
+
+body {
+
+	min-width: 0;
+	color: #444;
+	font-family: 'Roboto', sans-serif;
+	text-transform: uppercase;
+	font-size: 13px;
+	line-height: 1.4em;
+
+}
+label {
+	font-weight: bold;
+}
+
+a {
+	color: #0073aa;
+	-webkit-transition-property: border, background, color;
+	transition-property: border, background, color;
+	-webkit-transition-duration: .05s;
+	transition-duration: .05s;
+	-webkit-transition-timing-function: ease-in-out;
+	transition-timing-function: ease-in-out;
+}
+
+a {
+	outline: 0;
+}
+
+p.description-indicator-hint{color:white}
+
+a:hover,
+a:active {
+	color: #00a0d2;
+}
+
+a:focus {
+	color: #124964;
+	-webkit-box-shadow:
+		0 0 0 1px #5b9dd9,
+		0 0 2px 1px rgba(30, 140, 190, .8);
+	box-shadow:
+		0 0 0 1px #5b9dd9,
+		0 0 2px 1px rgba(30, 140, 190, .8);
+}
+
+.ie8 a:focus {
+	outline: #5b9dd9 solid 1px;
+}
+
+p {
+	line-height: 1.5;
+}
+
+
+.login .message,
+.login #login_error {
+    border-left: 1px solid white;
+    padding: 12px;
+    margin-left: 40px !important;
+    margin-right: 40px;
+    zoom: 70%;
+    background: #9e1f18 !important ;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
+    color: white;
+    border: solid white 1px;
+    border-radius: 3px;
+}
+
+.login #nav, .login #backtoblog {
+    font-size: 13px;
+    padding: 0 15px 0;
+    text-align: center;
+    color:white;
+
+}
+
+
+
+.login #nav a, .login #backtoblog a {
+    text-decoration: none;
+    color: white;
+    background: #e20a16 !important ;
+    padding: 5px;
+    zoom: 80%;
+    border: solid white 1px; border-radius:2px;
+		text-align: center;
+		transition: all 1s;
+		font-weight: bold;
+
+}
+
+#nav a:hover {
+	background:black !important;
+	color:white !important;
+}
+
+.login #backtoblog a:hover {background:black;color:white !important;}
+.login #backtoblog a:hover, .login #nav a:hover, .login h1 a:hover background:#db572f;text-decoration:none}
+
+
+.login #login_error {
+	border-left-color: #dc3232;
+}
+
+body.login div#login form#loginform {border-radius: 3px !important;background-color: #9e1f18 !important;margin-left: 40px !important;margin-right:40px; border:0;}
+
+#loginform p.submit,
+.login-action-lostpassword p.submit {
+	border: none;
+	margin: -10px 0 20px; /* May want to revisit this */
+}
+
+.login * {
+	margin: 0;
+	padding: 0;
+}
+
+.login form {border-radius: 10px !important;background-color: #9e1f18 !important; zoom: 70%;margin-left: 40px !important;margin-right:40px; border: solid 3px white;}
+
+input.verif{display:none}
+label.verif{display:none}
+
+.g-recaptcha {
+    transform:scale(0.77);
+    transform-origin:0 0;
+}
+
+
+.login form .forgetmenot {
+	font-weight: normal;
+	float: left;
+	margin-bottom: 0;
+}
+
+.login .button-primary {
+	float: right;
+}
+
+#login form p {
+	margin-bottom: 0;
+        color:white
+}
+
+#login form p.submit {
+	margin: 0;
+	padding: 0;
+}
+
+body.login div#login label {color: white !important;font-size: 14px;}
+
+.login form .forgetmenot label {
+	font-size: 12px;
+	line-height: 19px;
+}
+
+.wp-core-ui .button-group.button-large .button, .wp-core-ui .button.button-large{
+	height: auto;
+	padding: 8px;
+	width: auto;
+	border: 0;
+	line-height: 18px;
+}
+
+.wp-core-ui .button-primary {
+    background: #e20a16;
+    border-color: transparent;
+    -webkit-box-shadow: transparent;
+    box-shadow: transparent;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: transparent;
+		text-transform:uppercase !important;
+		transition: all 1s;
+		font-weight: bold;
+		border-radius: 2px;
+}
+
+.wp-core-ui .button-primary.focus, .wp-core-ui .button-primary.hover, .wp-core-ui .button-primary:focus, .wp-core-ui .button-primary:hover {
+    background: black;
+    border-color: black;
+    color: #fff;
+}
+
+.login h1 {
+	text-align: center;
+}
+
+.login h1 a {
+	background-image: url(../images/LOGO.png);
+	background-image: none, url(../images/LOGO.png);
+	-webkit-background-size: 84px;
+	background-size: contain;
+	background-position: center top;
+	background-repeat: no-repeat;
+	color: #444;
+	height: 80px;
+	font-size: 20px;
+	font-weight: normal;
+	line-height: 1.3em;
+	margin: 0 auto 5px;
+	padding: 0;
+	text-decoration: none;
+	width: 250px;
+	text-indent: -9999px;
+	outline: none;
+	overflow: hidden;
+	display: block;
+}
+
+#login {
+    width: 300px;
+    margin: auto;
+    background: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 80%;
+}
+
+.login #nav,
+.login #backtoblog {
+	font-size: 13px;
+	padding: 0 24px 0;
+}
+
+.login #nav {
+	margin: 24px 0 0 0;
+}
+
+#backtoblog {
+	margin: 16px 0;
+display:none
+}
+
+.login #nav a,
+.login #backtoblog a {
+	text-decoration: none;
+	color: white;
+display:inline-block
+}
+
+.login #nav a:hover,
+.login #backtoblog a:hover,{
+	color:#fff;background-color:#db572f;
+}
+
+.login #nav a:focus,
+.login #backtoblog a:focus,
+.login h1 a:focus {
+	color: #124964;
+}
+
+.login form .input,
+.login input[type="text"] {
+	font-size: 24px;
+	width: 100%;
+	padding: 3px;
+	margin: 2px 6px 16px 0;
+}
+
+.login form .input,
+.login input[type="text"],
+.login form input[type="checkbox"] {
+    border-radius: 0;
+    border: solid 1px #9e1f18;
+    background: #eff6fd;
+}
+
+.ie7 .login form .input,
+.ie8 .login form .input {
+	font-family: sans-serif;
+}
+
+.login-action-rp input[type="text"] {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	margin: 0;
+}
+
+.login #pass-strength-result {
+	font-weight: 600;
+	margin: -1px 5px 16px 0;
+	padding: 6px 5px;
+	text-align: center;
+	width: 100%;
+}
+
+
+p#reg_passmail{color:white;    font-size: 8px;display:none;
+}
+
+form#registerform{    border-radius: 3px !important;
+    background: #9e1f18;
+    margin-left: 40px !important;
+    margin-right: 40px;
+    border: solid white 1px;}
+
+form#lostpasswordform{
+    border-radius: 3px !important;
+    background-color: #9e1f18 !important;
+    border: 0;
+    margin-left: 40px !important;
+    margin-right: 40px;
+}
+
+
+
+body.interim-login {
+	height: auto;
+}
+
+.interim-login #login {
+	padding: 0;
+	margin: 5px auto 20px;
+}
+
+.interim-login.login h1 a {
+	width: auto;
+}
+
+.interim-login #login_error,
+.interim-login.login .message {
+	margin: 0 0 16px;
+}
+
+.interim-login.login form {
+	margin: 0;
+}
+
+@-ms-viewport {
+	width: device-width;
+}
+
+@media screen and ( max-width: 782px ) {
+	.interim-login input[type=checkbox] {
+		height: 16px;
+		width: 16px;
+	}
+
+	.interim-login input[type=checkbox]:checked:before {
+		width: 16px;
+		font: normal 21px/1 dashicons;
+		margin: -3px 0 0 -4px;
+	}
+}

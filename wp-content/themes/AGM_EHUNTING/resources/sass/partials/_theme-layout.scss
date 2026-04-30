@@ -1,0 +1,48 @@
+// Utilidades de layout reutilizables del tema.
+.theme-container--full {
+  width: 100% !important;
+}
+
+// Grillas y contenedores compartidos de listados/posts.
+.theme-post-grid {
+  margin: 0 auto;
+
+  &--spaced {
+    margin-top: 30px;
+  }
+
+  &__pagination {
+    margin-bottom: 20px !important;
+  }
+}
+
+// Separación adicional de secciones de contacto.
+.theme-section--contact {
+  margin-bottom: 30px;
+}
+
+// Grupo de links/acciones de contacto.
+.theme-contact-links {
+  margin: 30px;
+
+  &__item {
+    margin: 15px auto;
+  }
+}
+
+// Utilidades para secciones de obras o listados especiales.
+.theme-obras-section {
+  margin-bottom: 0;
+
+  &__meta {
+    margin: 0 auto;
+    padding-top: 15px;
+  }
+}
+
+// Botones del sistema visual del tema.
+.theme-btn {
+  &--primary {
+    background: #d05a27 !important;
+  }
+}

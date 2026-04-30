@@ -1,0 +1,605 @@
+// Hero principal de la portada:
+// controla el alto total de la primera sección, el centrado del contenido
+// y el espacio superior para que el header no se monte sobre el texto.
+.home-hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 140px 24px 80px;
+
+  // Capa oscura que va encima del video para mejorar contraste del texto.
+  // También añade un degradado lateral para dar más profundidad visual.
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background:
+      linear-gradient(90deg, rgba(3, 7, 18, 0.86) 0%, rgba(3, 7, 18, 0.6) 38%, rgba(3, 7, 18, 0.34) 62%, rgba(3, 7, 18, 0.66) 100%),
+      linear-gradient(180deg, rgba(4, 14, 28, 0.18) 0%, rgba(4, 14, 28, 0.72) 100%);
+  }
+
+  // Halo decorativo azul al lado derecho del hero para reforzar el foco
+  // visual sobre la zona del planeta/video.
+  &__glow {
+    position: absolute;
+    right: -14vw;
+    top: 4vh;
+    width: min(56vw, 820px);
+    height: min(56vw, 820px);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(37, 101, 235, 0.28) 0%, rgba(37, 101, 235, 0.08) 38%, rgba(37, 101, 235, 0) 72%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  // Título principal del hero.
+  // Define escala, ancho máximo y compresión visual del headline.
+  &__title {
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    font-size: clamp(3rem, 6vw, 5.25rem) !important;
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    max-width: 980px;
+    text-wrap: balance;
+    text-shadow: none;
+  }
+
+  // Video o GIF de fondo.
+  // Se estira para cubrir toda la sección sin deformarse.
+  &__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  // Contenedor del contenido visible sobre el hero:
+  // título, subtítulo y botones.
+  &__content {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 1120px);
+    margin: 0 auto;
+    top: auto;
+    bottom: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  // Texto secundario bajo el título principal.
+  &__subtitle {
+    margin: 0;
+    max-width: 1120px;
+    font-size: clamp(1.15rem, 2vw, 1.9rem);
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.92);
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  // Fila de botones del hero.
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  // Estilo base compartido por los botones del hero.
+  &__button,
+  &__button:hover,
+  &__button:focus {
+    min-width: 290px;
+    height: 60px;
+    border-radius: 999px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 36px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: none;
+  }
+
+  // Botón sólido principal: CTA de contratación.
+  &__button--primary,
+  &__button--primary:hover,
+  &__button--primary:focus {
+    background: #de6e2f;
+    color: #fff;
+  }
+
+  // Botón secundario outline: CTA para ir a servicios.
+  &__button--ghost,
+  &__button--ghost:hover,
+  &__button--ghost:focus {
+    background: transparent;
+    color: #fff;
+    border: 3px solid #de6e2f;
+  }
+
+  // Compatibilidad con el CTA anterior de la portada.
+  &__cta {
+    z-index: 1111111111;
+  }
+}
+
+// Header especial de la portada:
+// se posiciona encima del hero y no afecta otras páginas.
+.site-header--home {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999999;
+}
+
+// Wrapper externo del header en home.
+// Se deja transparente y con alto suficiente para alojar logo, menú y banderas.
+.site-header--home .wrapperheader {
+  background: transparent;
+  height: 100px;
+}
+
+// En la portada ocultamos la top bar naranja original
+// para replicar el diseño limpio de la referencia.
+.site-header--home .site-header__top-bar {
+  display: none;
+}
+
+// Barra principal de navegación sobre el hero.
+// Se mantiene transparente para que el fondo siga visible.
+.site-header__nav--home {
+  position: relative;
+  width: 100%;
+  z-index: 111111;
+  background: transparent !important;
+  box-shadow: none;
+  border-bottom: 0;
+  height: 100px;
+}
+
+// Colores del contenido del header en la portada.
+// Fuerza texto e íconos en blanco sobre fondo oscuro.
+.site-header--home #menu-principal li a,
+.site-header--home #menu-principal li i,
+.site-header--home .banderas span,
+.site-header--home .sidenav-trigger i {
+  color: #fff;
+}
+
+// Sombra suave sobre el logo para que no se pierda sobre el video.
+.site-header--home .logo {
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.25));
+}
+
+// Caja general que alinea logo, menú y bloque derecho del header.
+.site-header--home .contenedor-logo-menu {
+  position: relative;
+  top: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 100px;
+  padding: 6px 24px 0;
+}
+
+// Bloque izquierdo del header.
+// Contiene logo y menú principal.
+.site-header--home .logo-y-banderas {
+  width: 100% !important;
+  position: relative;
+  padding-top: 0;
+  display: flex;
+  align-items: flex-start;
+  flex: 1 1 auto;
+  min-height: 100px;
+}
+
+// Caja del logo dentro del header.
+// Se baja un poco para separarlo del borde superior.
+.site-header--home .div-logo {
+  margin-left: 0;
+  line-height: 1 !important;
+  top: 6px;
+  left: 0;
+  position: absolute;
+  flex: 0 0 auto;
+}
+
+// Link del logo.
+.site-header--home .brand-logo {
+  transform: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+// Empuja el menú principal hacia la derecha del logo.
+.site-header--home .right {
+  margin-left: 0;
+  width: 100%;
+}
+
+// Contenedor del menú desktop en la portada.
+// Se alinea con el logo y deja espacio al bloque de blog + banderas.
+.site-header--home .right.hide-on-med-and-down {
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  left: 245px;
+  right: auto;
+  bottom: -2px;
+  width: auto;
+  flex: 0 0 auto;
+  padding-top: 0 !important;
+  padding-right: 0;
+  z-index: 2;
+}
+
+// Links del menú principal de la portada.
+// Ajusta altura de línea, peso y separación entre opciones.
+.site-header--home #menu-principal li a,
+.site-header--home #menu-principal li i {
+  line-height: 52px;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 0 14px;
+}
+
+// Navegación principal estable:
+// evita saltos verticales al hacer hover y aplica un acento visual
+// consistente con la paleta del sitio.
+.site-header #menu-principal {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: auto;
+  flex-wrap: nowrap;
+}
+
+.site-header #menu-principal > li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: auto !important;
+  min-height: 52px;
+}
+
+.site-header #menu-principal > li.main-menu-item:hover {
+  height: auto !important;
+}
+
+.site-header #menu-principal > li > a,
+.site-header #menu-principal > li > .dropdown-button {
+  position: relative;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border-radius: 999px;
+  transition:
+    color 0.24s ease,
+    background-color 0.24s ease,
+    box-shadow 0.24s ease,
+    opacity 0.24s ease;
+}
+
+.site-header #menu-principal > li > a::before,
+.site-header #menu-principal > li > .dropdown-button::before {
+  content: "";
+  position: absolute;
+  inset: 10px 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(223, 113, 56, 0.16), rgba(87, 190, 205, 0.12));
+  box-shadow: 0 0 18px rgba(87, 190, 205, 0.12);
+  opacity: 0;
+  transition: opacity 0.24s ease;
+  pointer-events: none;
+}
+
+.site-header #menu-principal > li > a::after,
+.site-header #menu-principal > li > .dropdown-button::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 12px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #df7138 0%, #57becd 100%);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.24s ease;
+  pointer-events: none;
+}
+
+.site-header #menu-principal > li:hover > a::before,
+.site-header #menu-principal > li:hover > .dropdown-button::before,
+.site-header #menu-principal > li.current-menu-item > a::before,
+.site-header #menu-principal > li.current-menu-parent > a::before,
+.site-header #menu-principal > li.current_page_parent > a::before {
+  opacity: 1;
+}
+
+.site-header #menu-principal > li:hover > a::after,
+.site-header #menu-principal > li:hover > .dropdown-button::after,
+.site-header #menu-principal > li.current-menu-item > a::after,
+.site-header #menu-principal > li.current-menu-parent > a::after,
+.site-header #menu-principal > li.current_page_parent > a::after {
+  transform: scaleX(1);
+}
+
+.site-header #menu-principal > li:hover > a,
+.site-header #menu-principal > li:hover > .dropdown-button,
+.site-header #menu-principal > li.current-menu-item > a,
+.site-header #menu-principal > li.current-menu-parent > a,
+.site-header #menu-principal > li.current_page_parent > a {
+  color: #fff;
+  text-shadow: 0 0 12px rgba(87, 190, 205, 0.14);
+}
+
+.site-header li.main-menu-item:hover .dropdown-button {
+  position: relative;
+}
+
+// Bloque derecho del header:
+// contiene Blog y las banderas de países.
+.site-header--home .banderas {
+  position: absolute !important;
+  top: 4px !important;
+  right: 12px;
+  width: auto !important;
+  float: none !important;
+  margin-right: 0 !important;
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0;
+}
+
+// Espaciado individual de cada bandera.
+.site-header--home .banderas .col {
+  padding: 0 1px !important;
+  margin-left: 0;
+}
+
+// Wrapper del bloque Blog + separador, ubicado junto a las banderas.
+.site-header--home .site-header__flags-meta {
+  display: none;
+  align-items: center;
+  line-height: 1;
+  margin-right: 1px;
+}
+
+// Texto previo a las banderas.
+// En esta portada se usa para mostrar "Blog |".
+.site-header--home .banderas span {
+  width: auto !important;
+  height: auto !important;
+  right: auto !important;
+  position: static !important;
+  padding-left: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+// Link Blog renderizado junto al selector de países.
+.site-header--home .site-header__blog-link,
+.site-header--home .site-header__blog-link:hover,
+.site-header--home .site-header__blog-link:focus {
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+// Separador entre Blog y banderas.
+.site-header--home .site-header__blog-separator {
+  display: inline-block;
+  margin: 0 1px 0 0;
+  opacity: 0.85;
+  line-height: 1;
+}
+
+// Asegura que las banderas no agreguen altura extra rara.
+.site-header--home .banderas img {
+  display: block;
+  width: 32px !important;
+  height: auto;
+}
+
+// Estado sticky del header cuando alguna lógica lo fija al hacer scroll.
+.site-header--home .headerSticky.sticky {
+  background: rgba(6, 18, 34, 0.82);
+  backdrop-filter: blur(12px);
+}
+
+.site-header--home .headerSticky.sticky .contenedor-logo-menu {
+  padding-top: 6px;
+}
+
+.site-header--home .headerSticky.sticky .logo-y-banderas {
+  padding-top: 0;
+}
+
+.site-header--home .headerSticky.sticky .right.hide-on-med-and-down {
+  bottom: 0;
+  padding-top: 0 !important;
+}
+
+.site-header--home .headerSticky.sticky .banderas {
+  top: 4px !important;
+}
+
+// En páginas interiores el mismo header se muestra con el estado oscuro desde el inicio.
+.ehunting-section-header .site-header--home {
+  position: sticky;
+  top: 0;
+}
+
+.ehunting-section-header .site-header--home .wrapperheader,
+.ehunting-section-header .site-header__nav--home {
+  height: 84px;
+}
+
+.ehunting-section-header .site-header--home .headerSticky {
+  background: #081426;
+  backdrop-filter: blur(12px);
+  height: 84px;
+}
+
+.ehunting-section-header .site-header--home .headerSticky.sticky {
+  background: #081426;
+}
+
+.ehunting-section-header .site-header--home .contenedor-logo-menu {
+  min-height: 84px;
+  padding: 6px 22px 0;
+}
+
+.ehunting-section-header .site-header--home .logo-y-banderas {
+  padding-top: 0;
+}
+
+.ehunting-section-header .site-header--home .right.hide-on-med-and-down {
+  left: 215px;
+  right: auto;
+  bottom: -4px;
+  padding-top: 0 !important;
+  justify-content: flex-start;
+}
+
+.ehunting-section-header .site-header--home #menu-principal li a,
+.ehunting-section-header .site-header--home #menu-principal li i {
+  font-size: 15px;
+}
+
+.ehunting-section-header .site-header--home .banderas {
+  top: 4px !important;
+  right: 12px;
+}
+
+// Ajustes responsivos del hero y header en pantallas pequeñas.
+@media (max-width: 768px) {
+  .home-hero {
+    min-height: 88vh;
+    padding: 120px 20px 56px;
+  }
+
+  .home-hero__title {
+    font-size: clamp(2.35rem, 10vw, 3.5rem) !important;
+  }
+
+  .home-hero__subtitle {
+    font-size: 1.1rem;
+  }
+
+  .home-hero__button,
+  .home-hero__button:hover,
+  .home-hero__button:focus {
+    min-width: 240px;
+    width: 100%;
+    max-width: 320px;
+    font-size: 0.92rem;
+    letter-spacing: 0.12em;
+  }
+
+  .site-header--home .wrapperheader,
+  .site-header__nav--home {
+    height: 120px;
+  }
+
+  .site-header--home .contenedor-logo-menu {
+    min-height: 120px;
+    padding-top: 10px;
+  }
+
+  .site-header--home .logo-y-banderas {
+    padding-top: 8px;
+  }
+
+  .site-header--home .right.hide-on-med-and-down {
+    padding-right: 0;
+  }
+}
+
+.our-clients {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  display: block !important;
+
+  &__header {
+    margin-top: 10px !important;
+  }
+
+  &__title {
+    margin-bottom: 5px;
+  }
+
+  &__divider {
+    margin: 0 auto 25px;
+  }
+}
+
+.container-clients {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  text-align: center;
+}
+
+.client-img {
+  width: 150px;
+  height: 100px;
+  object-fit: contain;
+
+  &:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+  }
+}
+
+@media (max-width: 768px) {
+  .our-clients {
+    display: block !important;
+  }
+
+  .container-clients {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .our-clients {
+    display: block !important;
+  }
+
+  .container-clients {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

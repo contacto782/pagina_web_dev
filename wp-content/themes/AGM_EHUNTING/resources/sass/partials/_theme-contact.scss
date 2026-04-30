@@ -1,0 +1,411 @@
+// Estilos principales de la página de contacto:
+// cabecera, tarjetas de países/oficinas y widget flotante.
+.contact-offices-section {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(45, 121, 170, 0.28), transparent 32%),
+    linear-gradient(145deg, #081426 0%, #13233a 44%, #0b1728 100%);
+  color: #fff;
+  padding: 26px 0 82px;
+}
+
+.contact-offices-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, transparent 0 18%, rgba(255, 255, 255, 0.08) 18.2%, transparent 18.7% 56%, rgba(255, 255, 255, 0.06) 56.2%, transparent 56.8%),
+    linear-gradient(42deg, transparent 0 28%, rgba(223, 113, 56, 0.11) 28.2%, transparent 28.8% 70%, rgba(87, 190, 205, 0.08) 70.2%, transparent 70.8%);
+  pointer-events: none;
+}
+
+.about-offices-section {
+  padding-top: 58px;
+}
+
+.about-offices-section .contact-header {
+  padding-top: 0;
+}
+
+.contact-header {
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 20px 32px;
+  text-align: center;
+
+  h1 {
+    font-size: clamp(22px, 4vw, 32px);
+    margin-bottom: 30px;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  h2 {
+    color: #fff;
+    font-size: clamp(34px, 5vw, 56px);
+    margin: 56px 0 22px;
+    font-weight: 800;
+    line-height: 1.04;
+  }
+}
+
+.contact-header__lead {
+  margin: 0 auto 12px;
+  max-width: 780px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: clamp(17px, 2vw, 24px);
+  line-height: 1.35;
+}
+
+.contact-header__accent {
+  margin: 0;
+  color: #57becd;
+  font-size: clamp(20px, 2.6vw, 30px);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+// Grilla responsiva de tarjetas de oficinas.
+.countries-grid {
+  position: relative;
+  z-index: 1;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  justify-content: center;
+}
+
+// Tarjeta visual individual de cada país/oficina.
+.country-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(18, 40, 65, 0.94) 0%, rgba(10, 23, 39, 0.98) 100%);
+  border: 1px solid rgba(87, 190, 205, 0.24);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: rgba(223, 113, 56, 0.78);
+    box-shadow: 0 24px 58px rgba(0, 0, 0, 0.36);
+  }
+
+  &:hover .card-image::before {
+    opacity: 0.62;
+  }
+}
+
+// Imagen superior de cada tarjeta.
+.card-image {
+  position: relative;
+  height: 205px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(2, 7, 16, 0.12) 0%, rgba(4, 13, 26, 0.72) 100%),
+      linear-gradient(90deg, rgba(87, 190, 205, 0.2), rgba(223, 113, 56, 0.14));
+    opacity: 0.78;
+    transition: opacity 0.3s ease;
+  }
+}
+
+// Contenido textual y acciones internas de la tarjeta.
+.country-card .card-content {
+  position: relative;
+  padding: 24px 24px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  flex-grow: 1;
+}
+
+.country-flag {
+  width: 46px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 6px;
+  font-size: 24px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.country-name {
+  font-size: clamp(23px, 2.4vw, 29px);
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.country-address {
+  font-size: clamp(14px, 2vw, 16px);
+  color: rgba(255, 255, 255, 0.74);
+  line-height: 1.5;
+  margin: 0;
+  flex-grow: 1;
+  display: grid;
+  gap: 2px;
+}
+
+.card-actions {
+  padding-top: 12px;
+}
+
+// Botones de contacto compartidos.
+.whatsapp-btn,
+.phone-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  color: white;
+  min-height: 48px;
+  padding: 13px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: none;
+
+  &:hover {
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  img {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+// Variante visual para WhatsApp.
+.whatsapp-btn {
+  background: linear-gradient(135deg, #df7138 0%, #b94f25 100%);
+  box-shadow: 0 12px 24px rgba(223, 113, 56, 0.22);
+
+  &:hover {
+    background: linear-gradient(135deg, #f07d3f 0%, #c85a2c 100%);
+    box-shadow: 0 16px 30px rgba(223, 113, 56, 0.32);
+  }
+
+  img {
+    filter: brightness(0) invert(1);
+  }
+}
+
+// Variante visual para teléfono.
+.phone-btn {
+  background: linear-gradient(135deg, #57becd 0%, #216f88 100%);
+
+  &:hover {
+    background: linear-gradient(135deg, #66cede 0%, #287f9c 100%);
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// Variables globales del widget flotante.
+:root {
+  --eh-orange: #e86b2b;
+  --eh-orange-rgb: 232, 107, 43;
+}
+
+// Botón flotante de contacto.
+.eh-contact-btn {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--eh-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2147483647;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+  -webkit-tap-highlight-color: transparent;
+
+  i {
+    color: #fff;
+    font-size: 30px;
+    line-height: 1;
+  }
+}
+
+// Animación de pulso del botón flotante.
+@keyframes eh-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--eh-orange-rgb), 0.45), 0 0 0 0 rgba(var(--eh-orange-rgb), 0.25), 0 10px 24px rgba(0, 0, 0, 0.22);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(var(--eh-orange-rgb), 0.3), 0 0 0 24px rgba(var(--eh-orange-rgb), 0.15), 0 10px 24px rgba(0, 0, 0, 0.22);
+  }
+  100% {
+    box-shadow: 0 0 0 26px rgba(var(--eh-orange-rgb), 0), 0 0 0 40px rgba(var(--eh-orange-rgb), 0), 0 10px 24px rgba(0, 0, 0, 0.22);
+  }
+}
+
+body:not(.eh-contact-open) .eh-contact-btn {
+  animation: eh-pulse 2.2s ease-out infinite;
+}
+
+body.eh-contact-open .eh-contact-btn {
+  animation: none !important;
+}
+
+// Panel expandido del contacto flotante.
+.eh-contact-panel {
+  position: fixed;
+  right: 22px;
+  bottom: 96px;
+  width: 380px;
+  max-width: calc(100vw - 44px);
+  height: 560px;
+  max-height: 78vh;
+  background: #f7f7f7;
+  border-radius: 18px;
+  overflow: hidden;
+  z-index: 2147483646;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  transform: translateY(16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+
+  &.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  input,
+  textarea,
+  select {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #888 !important;
+  }
+}
+
+// Cabecera del panel flotante.
+.eh-contact-header {
+  height: 64px;
+  background: #002f5f;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+}
+
+// Botón cerrar del panel.
+.eh-contact-close {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 6px;
+
+  i {
+    color: #fff;
+    font-size: 26px;
+  }
+}
+
+// Cuerpo scrolleable del panel.
+.eh-contact-body {
+  height: calc(100% - 64px);
+  overflow: auto;
+  background: #ffffff !important;
+}
+
+@media (max-width: 600px) {
+  .countries-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 0 16px 40px;
+  }
+
+  .card-image {
+    height: 200px;
+  }
+
+  .contact-header {
+    padding: 30px 16px 20px;
+
+    h2 {
+      margin-top: 40px;
+      margin-bottom: 30px;
+    }
+  }
+}
+
+@media (min-width: 601px) and (max-width: 992px) {
+  .countries-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (min-width: 993px) {
+  .countries-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .countries-grid {
+    gap: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .eh-contact-btn {
+    right: 16px;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+    width: 60px;
+    height: 60px;
+  }
+
+  .eh-contact-panel {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 88px);
+    height: min(78dvh, 640px);
+    max-height: none;
+    border-radius: 18px;
+  }
+}

@@ -1,0 +1,30 @@
+name: SSH Deploy
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    name: "Deploy to production"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/production.key
+          chmod 600 ~/.ssh/production.key
+          cat >>~/.ssh/config <<END
+          Host ehunting
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/production.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.DEPLOY_USER }}
+          SSH_KEY: ${{ secrets.DEPLOY_KEY }}
+          SSH_HOST: ${{ secrets.DEPLOY_HOST }}
+
+      - name: Pull from production and deploy
+        run: ssh ehunting 'rm -rf /home/${{ secrets.DEPLOY_USER }}/tmp/${{ secrets.TARGET_FOLDER }} && mkdir /home/${{ secrets.DEPLOY_USER }}/tmp/${{ secrets.TARGET_FOLDER }} && cd /home/${{ secrets.DEPLOY_USER }}/tmp/${{ secrets.TARGET_FOLDER }} && git init && git remote add origin ${{ secrets.DEPLOY_REPO }} && git reset --hard && git pull origin master && rm -r .git && chmod -R u=rwx,go=rx /home/${{ secrets.DEPLOY_USER }}/tmp/${{ secrets.TARGET_FOLDER }} && cd /home/${{ secrets.DEPLOY_USER }}/tmp/${{ secrets.TARGET_FOLDER }} && cp -R /home/${{ secrets.DEPLOY_USER }}/tmp/${{ secrets.TARGET_FOLDER }} ${{ secrets.DEPLOY_DIRECTORY }} && rm -r /home/${{ secrets.DEPLOY_USER }}/tmp/${{ secrets.TARGET_FOLDER }}'

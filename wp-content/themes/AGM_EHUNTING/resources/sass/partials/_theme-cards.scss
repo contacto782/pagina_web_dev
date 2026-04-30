@@ -1,0 +1,112 @@
+// Tarjetas reutilizables de posts/listados.
+// Define media, overlay, título y separación del botón.
+.theme-post-card {
+  // Imagen o media superior de la tarjeta.
+  &__media {
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  // Capa oscura sobre la imagen para mejorar legibilidad.
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background: #00000059;
+  }
+
+  // Título visible sobre la tarjeta.
+  &__title {
+    margin: 0;
+    padding: 5px;
+    text-transfom: capitalize;
+  }
+
+  // Contenido textual y espaciado del botón.
+  &__content {
+    .theme-post-card__button {
+      margin: 40px;
+    }
+  }
+
+  &--news {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 610px;
+    border-radius: 0;
+    background: #ffffff;
+    border: 1px solid rgba(15, 30, 57, 0.08);
+    box-shadow: 0 10px 28px rgba(18, 24, 39, 0.18);
+    overflow: hidden;
+  }
+
+  &__media--news {
+    display: block;
+    height: 320px !important;
+    margin: 22px 22px 0;
+    border-radius: 6px 6px 0 0;
+    background-position: center;
+  }
+
+  &__content--news {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 18px 22px 20px !important;
+    gap: 14px;
+  }
+
+  &__headline {
+    margin: 0;
+    color: #192d4f;
+    font-size: 1.08rem;
+    line-height: 1.35;
+    font-weight: 700;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+
+  &__excerpt {
+    color: #5f6778;
+    font-size: 0.96rem;
+    line-height: 1.65;
+    flex: 1 1 auto;
+    min-height: 132px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 6px;
+  }
+
+  &__button--news {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 104px;
+    min-height: 42px;
+    padding: 0 18px;
+    border: 1.5px solid #516da5;
+    border-radius: 999px;
+    color: #516da5;
+    background: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: none;
+  }
+}

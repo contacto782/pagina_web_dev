@@ -1,0 +1,5 @@
+// Punto de entrada principal del bundle de estilos.
+// Carga Materialize primero y luego los estilos propios del tema.
+@import '~materialize-css/sass/materialize';
+// Hoja principal del tema con parciales nuevos y estilos legacy.
+@import 'styles';
