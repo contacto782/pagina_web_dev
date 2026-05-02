@@ -263,7 +263,7 @@ function ehunting_render_forced_header_menu($items, $args) {
         );
 
         foreach ($menu_item['match'] as $match) {
-            if ($match === $request_path || ('#casos-exito' === $match && ehunting_is_home_hero_template())) {
+            if ($match === $request_path) {
                 $classes[] = 'current-menu-item';
                 break;
             }

@@ -317,15 +317,27 @@ $faq_items = array(
 </section>
 
 <section id="casos-exito" class="home-success-cases">
+  <div class="home-success-cases__background" aria-hidden="true">
+    <video
+      class="home-success-cases__background-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+    >
+      <source src="<?php echo esc_url(trailingslashit(get_stylesheet_directory_uri()) . 'images/MUNDO.mp4'); ?>" type="video/mp4">
+    </video>
+    <div class="home-success-cases__background-overlay"></div>
+  </div>
   <div class="home-section-shell">
     <h2 class="home-section-title">Casos de Éxito</h2>
     <p class="home-section-intro">Nuestros resultados hablan por nosotros: proyectos que han transformado organizaciones de múltiples industrias a través de talento tecnológico y digital estratégico.</p>
-    <div class="home-success-cases__carousel" data-success-cases>
-      <button class="home-success-cases__nav home-success-cases__nav--prev" type="button" aria-label="Caso anterior">‹</button>
-      <div class="home-success-cases__viewport">
+    <div class="home-success-cases__experience" data-success-cases>
+      <div class="home-success-cases__detail-shell">
         <?php foreach ($success_cases as $index => $case) : ?>
-          <article class="home-success-cases__slide"<?php echo 0 === $index ? '' : ' hidden'; ?> data-success-slide>
-            <div class="home-success-cases__panel home-success-cases__panel--carousel">
+          <article class="home-success-cases__detail<?php echo 0 === $index ? ' is-active' : ''; ?>" data-success-detail<?php echo 0 === $index ? '' : ' hidden'; ?>>
+            <div class="home-success-cases__panel home-success-cases__panel--interactive">
               <div class="home-success-cases__panel-top">
                 <div class="home-success-cases__brand home-success-cases__brand--panel">
                   <img src="<?php echo esc_url($case['logo']); ?>" alt="<?php echo esc_attr($case['company']); ?>" class="home-success-cases__logo" loading="lazy" decoding="async">
@@ -348,33 +360,294 @@ $faq_items = array(
             </div>
           </article>
         <?php endforeach; ?>
-      </div>
-      <button class="home-success-cases__nav home-success-cases__nav--next" type="button" aria-label="Siguiente caso">›</button>
-      <div class="home-success-cases__dots" role="tablist" aria-label="Casos de éxito">
-        <?php foreach ($success_cases as $index => $case) : ?>
-          <button class="home-success-cases__dot<?php echo 0 === $index ? ' is-active' : ''; ?>" type="button" aria-label="<?php echo esc_attr('Ver caso ' . ($index + 1)); ?>" data-success-dot></button>
-        <?php endforeach; ?>
+
+        <div class="home-success-cases__controls">
+          <button class="home-success-cases__control home-success-cases__control--prev" type="button" aria-label="Caso anterior">‹</button>
+          <div class="home-success-cases__dots" role="tablist" aria-label="Casos de éxito">
+            <?php foreach ($success_cases as $index => $case) : ?>
+              <button class="home-success-cases__dot<?php echo 0 === $index ? ' is-active' : ''; ?>" type="button" aria-label="<?php echo esc_attr('Ver caso ' . ($index + 1)); ?>" data-success-dot></button>
+            <?php endforeach; ?>
+          </div>
+          <button class="home-success-cases__control home-success-cases__control--next" type="button" aria-label="Siguiente caso">›</button>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<style>
+  .home-success-cases {
+    position: relative;
+    overflow: hidden;
+    padding: 0 !important;
+    min-height: 760px;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .home-success-cases__background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .home-success-cases__background-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+    display: block;
+    filter: saturate(1.08) contrast(1.04) brightness(0.92);
+  }
+
+  .home-success-cases__background-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 18% 28%, rgba(255, 129, 64, 0.05), transparent 26%),
+      radial-gradient(circle at 80% 32%, rgba(87, 190, 205, 0.06), transparent 30%);
+  }
+
+  .home-success-cases .home-section-shell {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 1280px);
+    min-height: 760px;
+    padding: 40px 24px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .home-success-cases .home-section-title {
+    margin: 0 0 14px;
+    text-align: left;
+    font-size: clamp(1.9rem, 3.2vw, 3rem);
+  }
+
+  .home-success-cases .home-section-intro {
+    margin: 0 0 24px;
+    max-width: 760px;
+    text-align: left;
+    font-size: clamp(0.92rem, 1.15vw, 1.08rem);
+    line-height: 1.45;
+  }
+
+  .home-success-cases__experience {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  .home-success-cases__orbit {
+    position: absolute;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .home-success-cases__orbit--one {
+    top: 14%;
+    right: 10%;
+    width: 180px;
+    height: 180px;
+    animation: successOrbit 10s linear infinite;
+  }
+
+  .home-success-cases__orbit--two {
+    bottom: 12%;
+    left: 12%;
+    width: 120px;
+    height: 120px;
+    animation: successOrbitReverse 8s linear infinite;
+  }
+
+  .home-success-cases__detail-shell {
+    position: relative;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 640px);
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .home-success-cases__detail {
+    animation: successReveal 0.32s ease;
+  }
+
+  .home-success-cases__panel--interactive {
+    min-height: 520px;
+    padding: 28px 28px 24px !important;
+    border-radius: 24px;
+  }
+
+  .home-success-cases__panel--interactive .home-success-cases__panel-top {
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+
+  .home-success-cases__panel--interactive .home-success-cases__logo {
+    max-width: 108px;
+    max-height: 56px;
+  }
+
+  .home-success-cases__panel--interactive .home-success-cases__tag {
+    min-height: 40px;
+    padding: 0 18px;
+    font-size: 0.84rem;
+  }
+
+  .home-success-cases__panel--interactive .home-success-cases__headline {
+    margin: 0 0 18px;
+    font-size: clamp(1.35rem, 2vw, 1.9rem);
+    line-height: 1.2;
+  }
+
+  .home-success-cases__panel--interactive .home-success-cases__section-label {
+    margin: 0 0 8px;
+    font-size: 0.95rem;
+  }
+
+  .home-success-cases__panel--interactive .home-success-cases__copy {
+    margin: 0 0 18px;
+  }
+
+  .home-success-cases__panel--interactive .home-success-cases__copy p,
+  .home-success-cases__panel--interactive .home-success-cases__list li {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .home-success-cases__panel--interactive .home-success-cases__copy p {
+    margin: 0 0 8px;
+  }
+
+  .home-success-cases__panel--interactive .home-success-cases__list li + li {
+    margin-top: 8px;
+  }
+
+  .home-success-cases__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .home-success-cases__control {
+    width: 46px;
+    height: 46px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    color: #59c9f5;
+    font-size: 1.8rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  }
+
+  .home-success-cases__dots {
+    flex: 1;
+    margin-top: 0;
+  }
+
+  @keyframes successOrbit {
+    from { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.04); }
+    to { transform: rotate(360deg) scale(1); }
+  }
+
+  @keyframes successOrbitReverse {
+    from { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(-180deg) scale(0.96); }
+    to { transform: rotate(-360deg) scale(1); }
+  }
+
+  @keyframes successReveal {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 1180px) {
+    .home-success-cases,
+    .home-success-cases .home-section-shell {
+      min-height: 680px;
+    }
+
+    .home-success-cases .home-section-title,
+    .home-success-cases .home-section-intro {
+      text-align: left;
+    }
+
+    .home-success-cases__panel--interactive {
+      min-height: auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .home-success-cases__experience {
+      gap: 20px;
+    }
+
+    .home-success-cases,
+    .home-success-cases .home-section-shell {
+      min-height: auto;
+    }
+
+    .home-success-cases .home-section-shell {
+      padding: 48px 16px !important;
+    }
+
+    .home-success-cases__detail-shell {
+      width: 100%;
+    }
+
+    .home-success-cases__controls {
+      gap: 10px;
+    }
+
+    .home-success-cases__control {
+      width: 46px;
+      height: 46px;
+      font-size: 1.8rem;
+    }
+  }
+</style>
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    var carousel = document.querySelector('[data-success-cases]');
-    if (!carousel) return;
+    var showcase = document.querySelector('[data-success-cases]');
+    if (!showcase) return;
 
-    var slides = Array.prototype.slice.call(carousel.querySelectorAll('[data-success-slide]'));
-    var dots = Array.prototype.slice.call(carousel.querySelectorAll('[data-success-dot]'));
-    var prev = carousel.querySelector('.home-success-cases__nav--prev');
-    var next = carousel.querySelector('.home-success-cases__nav--next');
+    var details = Array.prototype.slice.call(showcase.querySelectorAll('[data-success-detail]'));
+    var dots = Array.prototype.slice.call(showcase.querySelectorAll('[data-success-dot]'));
+    var prev = showcase.querySelector('.home-success-cases__control--prev');
+    var next = showcase.querySelector('.home-success-cases__control--next');
     var current = 0;
 
     function render(index) {
-      current = (index + slides.length) % slides.length;
-      slides.forEach(function (slide, slideIndex) {
-        slide.hidden = slideIndex !== current;
+      current = (index + details.length) % details.length;
+
+      details.forEach(function (detail, detailIndex) {
+        var isActive = detailIndex === current;
+        detail.hidden = !isActive;
+        detail.classList.toggle('is-active', isActive);
       });
+
       dots.forEach(function (dot, dotIndex) {
         dot.classList.toggle('is-active', dotIndex === current);
       });

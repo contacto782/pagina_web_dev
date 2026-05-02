@@ -67,51 +67,27 @@ if (!function_exists('csvToArray')) {
    Componente de la Card
 ------------------------------*/
 function get_job_card($cargo, $oferta, $mision, $requisitos, $modalidad, $beneficios, $pais = "Chile", $ciudad = ''){
-    $employmentType = "FULL_TIME";
-    if (stripos($modalidad, 'part') !== false || stripos($modalidad, 'medio') !== false) {
-        $employmentType = "PART_TIME";
-    } elseif (stripos($modalidad, 'remoto') !== false || stripos($modalidad, 'remote') !== false) {
-        $employmentType = "CONTRACTOR";
-    }
-
     $location_label = trim(($ciudad ? $ciudad . ', ' : '') . $pais);
     $description = trim($oferta ?: strip_tags($mision));
     $description = $description ?: 'Conoce los detalles de esta oportunidad y postula para avanzar en tu carrera digital.';
     $country_filter = esc_attr(sanitize_title($pais));
     $modality_filter = esc_attr(sanitize_title($modalidad));
+    $title_id = 'job-' . substr(md5($cargo . $location_label . $modalidad), 0, 10);
 
     return "
     <div class=\"job-card-col\" data-country=\"{$country_filter}\" data-modality=\"{$modality_filter}\">
-        <article itemscope itemtype=\"https://schema.org/JobPosting\" class=\"job-card\">
-            <meta itemprop=\"datePosted\" content=\"" . date('Y-m-d') . "\">
-            <meta itemprop=\"validThrough\" content=\"" . date('Y-m-d', strtotime('+60 days')) . "\">
-            <meta itemprop=\"employmentType\" content=\"{$employmentType}\">
-
-            <div itemprop=\"hiringOrganization\" itemscope itemtype=\"https://schema.org/Organization\" style=\"display:none;\">
-                <meta itemprop=\"name\" content=\"eHunting Latam\">
-                <meta itemprop=\"sameAs\" content=\"https://ehlatam.com\">
-            </div>
-
-            <div itemprop=\"jobLocation\" itemscope itemtype=\"https://schema.org/Place\">
-                <div itemprop=\"address\" itemscope itemtype=\"https://schema.org/PostalAddress\">
-                    <meta itemprop=\"addressLocality\" content=\"".htmlspecialchars($ciudad ?: $modalidad, ENT_QUOTES, 'UTF-8')."\">
-                    <meta itemprop=\"addressCountry\" content=\"{$pais}\">
-                </div>
-            </div>
-
-            <h2 itemprop=\"title\" class=\"job-card__title\">{$cargo}</h2>
-
+        <button type=\"button\" class=\"job-card\" data-job-trigger aria-controls=\"{$title_id}\" aria-pressed=\"false\">
+            <span class=\"job-card__eyebrow\">Vacante activa</span>
+            <h2 class=\"job-card__title\">{$cargo}</h2>
             <div class=\"job-card__meta\">
                 <span class=\"job-card__tag\">{$location_label}</span>
                 <span class=\"job-card__tag\">{$modalidad}</span>
             </div>
-
             <div class=\"job-card__description\">
-                <p itemprop=\"description\">{$description}</p>
+                <p>{$description}</p>
             </div>
-
-            <a class=\"job-card__button\" href=\"mailto:postula@ehunting.cl?subject=Postulación: " . urlencode($cargo) . "\">Postular</a>
-        </article>
+            <span class=\"job-card__hint\">Ver detalle completo</span>
+        </button>
     </div>";
 }
 
@@ -310,7 +286,7 @@ if ($json && is_array($json)) {
     }
 
     body.ehunting-section-header {
-        background: #ffffff;
+        background: linear-gradient(180deg, #f7f8fc 0%, #eef2f8 100%);
     }
 
     .vacantes-container {
@@ -367,6 +343,12 @@ if ($json && is_array($json)) {
         justify-content: space-between;
         gap: 18px 22px;
         margin: 0 0 28px;
+        padding: 18px 20px;
+        border: 1px solid rgba(23, 59, 115, 0.08);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.78);
+        box-shadow: 0 18px 40px rgba(24, 39, 75, 0.08);
+        backdrop-filter: blur(10px);
     }
 
     .jobs-filters {
@@ -383,7 +365,7 @@ if ($json && is_array($json)) {
     .jobs-filter__label {
         display: block;
         margin: 0 0 8px;
-        color: rgba(255, 255, 255, 0.82);
+        color: #173b73;
         font-size: 12px;
         line-height: 1.2;
         font-weight: 700;
@@ -398,10 +380,10 @@ if ($json && is_array($json)) {
         -moz-appearance: none;
         width: 100%;
         min-height: 44px;
-        border: 1px solid rgba(87, 190, 205, 0.28);
+        border: 1px solid rgba(23, 59, 115, 0.14);
         border-radius: 8px;
-        background: rgba(11, 25, 45, 0.92);
-        color: #fff;
+        background: linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
+        color: #173b73;
         padding: 0 38px 0 14px;
         box-shadow: none;
         outline: none;
@@ -417,6 +399,7 @@ if ($json && is_array($json)) {
 
     .jobs-filter__select:focus {
         border-color: rgba(87, 190, 205, 0.65);
+        box-shadow: 0 0 0 4px rgba(87, 190, 205, 0.12);
     }
 
     .jobs-filter__select option {
@@ -424,7 +407,7 @@ if ($json && is_array($json)) {
     }
 
     .jobs-results {
-        color: rgba(255, 255, 255, 0.86);
+        color: #173b73;
         font-size: 14px;
         line-height: 1.4;
         font-weight: 600;
@@ -435,109 +418,152 @@ if ($json && is_array($json)) {
         display: none;
         padding: 28px 24px;
         margin-top: 10px;
-        border: 1px solid rgba(87, 190, 205, 0.22);
-        border-radius: 8px;
-        background: rgba(8, 20, 38, 0.72);
-        color: rgba(255, 255, 255, 0.86);
+        border: 1px solid rgba(23, 59, 115, 0.08);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.84);
+        color: #2b3d59;
         text-align: center;
         font-size: 16px;
         line-height: 1.5;
+        box-shadow: 0 18px 40px rgba(24, 39, 75, 0.08);
     }
 
     .jobs-empty.is-visible {
         display: block;
     }
 
-    .jobs-grid {
+    .jobs-layout {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: clamp(20px, 2.8vw, 30px);
+        grid-template-columns: minmax(300px, 380px) minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+    }
+
+    .jobs-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
         margin: 0;
-        align-items: stretch;
+        max-height: 78vh;
+        overflow-y: auto;
+        padding-right: 8px;
+        position: sticky;
+        top: 122px;
+    }
+
+    .jobs-grid::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .jobs-grid::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, rgba(87, 190, 205, 0.88), rgba(223, 113, 56, 0.82));
+        border-radius: 999px;
     }
 
     .job-card-col {
         padding: 0;
-        margin: 0 0 clamp(18px, 2.8vw, 26px);
+        margin: 0;
     }
 
     .job-card {
         position: relative;
-        min-height: 438px;
-        height: 100%;
-        padding: 24px 22px 24px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
+        width: 100%;
+        min-height: 0;
+        padding: 20px 18px 18px;
+        border: 1px solid rgba(23, 59, 115, 0.08);
+        border-radius: 18px;
         background:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0)),
-            linear-gradient(180deg, rgba(17, 34, 57, 0.98) 0%, rgba(7, 18, 34, 0.99) 100%);
+            radial-gradient(circle at top right, rgba(87, 190, 205, 0.18), transparent 34%),
+            linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(245, 248, 252, 0.98) 100%);
         box-shadow:
-            0 18px 42px rgba(2, 8, 20, 0.36),
-            inset 0 0 0 1px rgba(87, 190, 205, 0.08);
+            0 18px 38px rgba(24, 39, 75, 0.08),
+            inset 0 0 0 1px rgba(87, 190, 205, 0.06);
         display: flex;
         flex-direction: column;
         align-items: stretch;
-        gap: 14px;
+        gap: 12px;
         transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
         overflow: hidden;
+        cursor: pointer;
+        text-align: left;
     }
 
     .job-card::before {
         content: "";
         position: absolute;
         top: 0;
-        left: 28px;
-        right: 28px;
+        left: 20px;
+        right: 20px;
         height: 3px;
         border-radius: 999px;
         background: linear-gradient(90deg, #df7138 0%, #57becd 100%);
         opacity: 0.9;
     }
 
-    .job-card:hover {
-        transform: translateY(-6px);
+    .job-card::after {
+        content: "";
+        position: absolute;
+        inset: 14px 14px auto auto;
+        width: 74px;
+        height: 74px;
+        border-radius: 18px;
+        background:
+            linear-gradient(135deg, rgba(87, 190, 205, 0.12), rgba(87, 190, 205, 0)),
+            linear-gradient(135deg, rgba(223, 113, 56, 0.12), rgba(223, 113, 56, 0));
+        clip-path: polygon(0 0, 100% 0, 100% 100%);
+        pointer-events: none;
+    }
+
+    .job-card:hover,
+    .job-card.is-active {
+        transform: translateY(-2px);
         border-color: rgba(223, 113, 56, 0.48);
         box-shadow:
-            0 24px 56px rgba(2, 8, 20, 0.46),
-            0 0 18px rgba(223, 113, 56, 0.12),
-            inset 0 0 0 1px rgba(87, 190, 205, 0.14);
+            0 24px 44px rgba(24, 39, 75, 0.14),
+            0 0 0 1px rgba(87, 190, 205, 0.16),
+            0 0 26px rgba(87, 190, 205, 0.12);
+    }
+
+    .job-card__eyebrow {
+        color: #57becd;
+        font-size: 11px;
+        line-height: 1.2;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
     }
 
     .job-card__title {
         width: 100%;
-        height: 128px;
-        min-height: 128px;
+        height: auto;
+        min-height: 0;
         margin: 0;
-        padding: 0 0 14px;
-        border-bottom: 1px solid rgba(87, 190, 205, 0.22);
+        padding: 0 0 10px;
+        border-bottom: 1px solid rgba(23, 59, 115, 0.12);
         border-radius: 0;
         background: transparent;
-        color: #fff;
-        text-align: center;
-        font-size: clamp(15px, 1.2vw, 18px);
+        color: #173b73;
+        text-align: left;
+        font-size: clamp(18px, 1.4vw, 22px);
         font-weight: 800;
-        line-height: 1.14;
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        text-wrap: balance;
-        overflow: hidden;
+        line-height: 1.2;
+        display: block;
     }
 
     .job-card__meta {
         width: 100%;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
         margin: 0;
     }
 
     .job-card__tag {
         min-height: 38px;
-        border: 1px solid rgba(87, 190, 205, 0.38);
+        border: 1px solid rgba(87, 190, 205, 0.24);
         border-radius: 8px;
         background: rgba(87, 190, 205, 0.08);
-        color: rgba(255, 255, 255, 0.9);
+        color: #2b3d59;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -550,25 +576,23 @@ if ($json && is_array($json)) {
 
     .job-card__description {
         width: 100%;
-        flex: 1 1 auto;
-        min-height: 150px;
-        max-height: 150px;
+        flex: 0 0 auto;
+        min-height: 0;
+        max-height: none;
         margin: 0;
-        border: 1px solid rgba(87, 190, 205, 0.3);
-        border-radius: 8px;
+        border: 1px solid rgba(23, 59, 115, 0.08);
+        border-radius: 14px;
         display: flex;
         align-items: flex-start;
         justify-content: flex-start;
-        padding: 18px;
-        background: rgba(3, 11, 24, 0.22);
-        color: rgba(255, 255, 255, 0.78);
+        padding: 14px 15px;
+        background: rgba(255, 255, 255, 0.72);
+        color: #4c5c75;
         text-align: left;
-        font-size: 14px;
+        font-size: 13px;
         line-height: 1.45;
-        overflow-y: auto;
-        overflow-x: hidden;
-        scrollbar-width: thin;
-        scrollbar-color: rgba(87, 190, 205, 0.55) rgba(255, 255, 255, 0.06);
+        overflow: hidden;
+        scrollbar-width: none;
     }
 
     .job-card__description p {
@@ -576,47 +600,146 @@ if ($json && is_array($json)) {
         display: block;
     }
 
-    .job-card__description::-webkit-scrollbar {
-        width: 6px;
+    .job-card__hint {
+        color: #173b73;
+        font-size: 12px;
+        line-height: 1.3;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
     }
 
-    .job-card__description::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.06);
+    .job-detail {
+        min-height: 78vh;
+        padding: 28px 28px 26px;
+        border: 1px solid rgba(23, 59, 115, 0.08);
+        border-radius: 22px;
+        background:
+            radial-gradient(circle at top right, rgba(87, 190, 205, 0.16), transparent 34%),
+            linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, rgba(244, 247, 251, 0.98) 100%);
+        box-shadow: 0 22px 52px rgba(24, 39, 75, 0.1), inset 0 0 0 1px rgba(87, 190, 205, 0.05);
+    }
+
+    .job-detail__inner[hidden] {
+        display: none !important;
+    }
+
+    .job-detail__eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 14px;
+        color: #57becd;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+    }
+
+    .job-detail__title {
+        margin: 0 0 14px;
+        color: #173b73;
+        font-size: clamp(26px, 2.2vw, 38px);
+        line-height: 1.1;
+        font-weight: 800;
+    }
+
+    .job-detail__meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 22px;
+    }
+
+    .job-detail__section + .job-detail__section {
+        margin-top: 24px;
+    }
+
+    .job-detail__section-title {
+        margin: 0 0 10px;
+        color: #173b73;
+        font-size: 20px;
+        line-height: 1.2;
+        font-weight: 700;
+    }
+
+    .job-detail__copy {
+        color: #4c5c75;
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    .job-detail__copy p {
+        margin: 0 0 10px;
+    }
+
+    .job-detail__copy ul {
+        margin: 0;
+        padding-left: 22px;
+    }
+
+    .job-detail__apply {
+        margin-top: 28px;
+        min-width: 176px;
+        min-height: 52px;
         border-radius: 999px;
-    }
-
-    .job-card__description::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, rgba(87, 190, 205, 0.85), rgba(223, 113, 56, 0.8));
-        border-radius: 999px;
-    }
-
-    .job-card__button {
-        min-width: 132px;
-        min-height: 44px;
-        margin: 4px auto 0;
-        border-radius: 8px;
-        background: #df7138;
+        background: linear-gradient(135deg, #df7138 0%, #f08a47 46%, #57becd 100%);
         color: #fff;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 0 24px;
+        gap: 10px;
+        padding: 0 28px;
         text-decoration: none;
         font-size: 15px;
         font-weight: 800;
         line-height: 1;
+        letter-spacing: 0.04em;
+        box-shadow: 0 18px 34px rgba(223, 113, 56, 0.24);
+        position: relative;
+        overflow: hidden;
     }
 
-    .job-card__button:hover,
-    .job-card__button:focus {
-        background: #ef7d40;
+    .job-detail__apply::before {
+        content: "";
+        position: absolute;
+        inset: 1px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.02));
+        pointer-events: none;
+    }
+
+    .job-detail__apply::after {
+        content: "↗";
+        position: relative;
+        font-size: 16px;
+        line-height: 1;
+    }
+
+    .job-detail__apply:hover,
+    .job-detail__apply:focus {
+        background: linear-gradient(135deg, #e37b3d 0%, #f59856 44%, #62ccdb 100%);
         color: #fff;
-        transform: translateY(-2px);
+        transform: translateY(-2px) scale(1.01);
+        box-shadow: 0 22px 38px rgba(223, 113, 56, 0.28);
     }
 
     @media (max-width: 1100px) {
-        .jobs-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+        .jobs-layout {
+            grid-template-columns: 320px minmax(0, 1fr);
+        }
+    }
+
+    @media (max-width: 900px) {
+        .jobs-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .jobs-grid,
+        .job-detail {
+            position: static;
+            max-height: none;
+            min-height: 0;
         }
     }
 
@@ -631,28 +754,20 @@ if ($json && is_array($json)) {
             min-width: 0;
         }
 
-        .jobs-grid {
-            grid-template-columns: 1fr;
-        }
-
         .page-header {
             margin-top: 28px;
         }
 
         .job-card {
-            min-height: 390px;
-            padding: 22px 20px 24px;
+            padding: 18px 16px 16px;
         }
 
-        .job-card__title {
-            height: 112px;
-            min-height: 112px;
-            padding-top: 0;
+        .job-detail {
+            padding: 22px 18px 20px;
         }
 
-        .job-card__description {
-            min-height: 144px;
-            max-height: 144px;
+        .job-detail__title {
+            font-size: 24px;
         }
     }
 </style>
@@ -922,8 +1037,10 @@ if($json) {
             <div class=\"jobs-results\" data-jobs-results>{$job_count} " . ($job_count === 1 ? 'vacante' : 'vacantes') . "</div>
         </section>
         
-        <main class=\"jobs-grid\" data-jobs-grid>";
+        <section class=\"jobs-layout\">
+            <main class=\"jobs-grid\" data-jobs-grid>";
 
+    $job_details_markup = '';
     foreach($json as $key => $value) {
         $cargo      = htmlspecialchars($json[$key]['cargo'], ENT_QUOTES, 'UTF-8');
         $oferta     = strip_tags(preg_replace("/;/", ",", $json[$key]['oferta']));
@@ -934,11 +1051,44 @@ if($json) {
         $pais       = isset($json[$key]['pais']) ? htmlspecialchars($json[$key]['pais'], ENT_QUOTES, 'UTF-8') : 'Chile';
         $ciudad     = isset($json[$key]['ciudad']) ? htmlspecialchars($json[$key]['ciudad'], ENT_QUOTES, 'UTF-8') : '';
 
-        echo get_job_card($cargo, $oferta, $mision, $requisitos, $modalidad, $beneficios, $pais, $ciudad);
+        $summary = wp_strip_all_tags($oferta ?: $mision);
+        $job_id = 'job-detail-' . $key;
+        $location_label = trim(($ciudad ? $ciudad . ', ' : '') . $pais);
+
+        echo get_job_card($cargo, $summary, $mision, $requisitos, $modalidad, $beneficios, $pais, $ciudad);
+
+        $job_details_markup .= '
+            <article class=\"job-detail__inner\" id=\"' . esc_attr($job_id) . '\" data-job-detail' . (0 === $key ? '' : ' hidden') . '>
+                <div class=\"job-detail__eyebrow\">Vacante activa</div>
+                <h2 class=\"job-detail__title\">' . $cargo . '</h2>
+                <div class=\"job-detail__meta\">
+                    <span class=\"job-card__tag\">' . esc_html($location_label) . '</span>
+                    <span class=\"job-card__tag\">' . esc_html($modalidad) . '</span>
+                </div>
+                <section class=\"job-detail__section\">
+                    <h3 class=\"job-detail__section-title\">Oferta</h3>
+                    <div class=\"job-detail__copy\"><p>' . esc_html($oferta ?: 'Conoce los detalles de esta oportunidad y postula para avanzar en tu carrera digital.') . '</p></div>
+                </section>
+                <section class=\"job-detail__section\">
+                    <h3 class=\"job-detail__section-title\">Misión</h3>
+                    <div class=\"job-detail__copy\">' . wp_kses_post(wpautop($mision)) . '</div>
+                </section>
+                <section class=\"job-detail__section\">
+                    <h3 class=\"job-detail__section-title\">Requisitos</h3>
+                    <div class=\"job-detail__copy\">' . wp_kses_post(wpautop($requisitos)) . '</div>
+                </section>
+                <section class=\"job-detail__section\">
+                    <h3 class=\"job-detail__section-title\">Beneficios</h3>
+                    <div class=\"job-detail__copy\">' . wp_kses_post(wpautop($beneficios)) . '</div>
+                </section>
+                <a class=\"job-detail__apply\" href=\"mailto:postula@ehunting.cl?subject=Postulación: ' . rawurlencode(html_entity_decode($cargo, ENT_QUOTES, 'UTF-8')) . '\">Postular</a>
+            </article>';
     }
 
     echo "
-        </main>
+            </main>
+            <aside class=\"job-detail\" data-job-detail-panel>" . $job_details_markup . "</aside>
+        </section>
         <div class=\"jobs-empty\" data-jobs-empty>No encontramos vacantes con esos filtros. Prueba con otra combinación.</div>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -946,17 +1096,35 @@ if($json) {
                 if (!grid) return;
 
                 const cards = Array.from(grid.querySelectorAll('.job-card-col'));
+                const triggers = Array.from(grid.querySelectorAll('[data-job-trigger]'));
+                const details = Array.from(document.querySelectorAll('[data-job-detail]'));
                 const countrySelect = document.querySelector('[data-filter=\"country\"]');
                 const modalitySelect = document.querySelector('[data-filter=\"modality\"]');
                 const emptyState = document.querySelector('[data-jobs-empty]');
                 const results = document.querySelector('[data-jobs-results]');
+                let activeIndex = 0;
+
+                function renderDetail(index) {
+                    activeIndex = index;
+
+                    triggers.forEach(function (trigger, triggerIndex) {
+                        const isActive = triggerIndex === index;
+                        trigger.classList.toggle('is-active', isActive);
+                        trigger.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                    });
+
+                    details.forEach(function (detail, detailIndex) {
+                        detail.hidden = detailIndex !== index;
+                    });
+                }
 
                 function updateFilters() {
                     const country = countrySelect ? countrySelect.value : '';
                     const modality = modalitySelect ? modalitySelect.value : '';
                     let visibleCount = 0;
+                    let firstVisibleIndex = -1;
 
-                    cards.forEach(function (card) {
+                    cards.forEach(function (card, index) {
                         const matchesCountry = !country || card.dataset.country === country;
                         const matchesModality = !modality || card.dataset.modality === modality;
                         const isVisible = matchesCountry && matchesModality;
@@ -965,6 +1133,9 @@ if($json) {
 
                         if (isVisible) {
                             visibleCount += 1;
+                            if (firstVisibleIndex === -1) {
+                                firstVisibleIndex = index;
+                            }
                         }
                     });
 
@@ -975,11 +1146,26 @@ if($json) {
                     if (emptyState) {
                         emptyState.classList.toggle('is-visible', visibleCount === 0);
                     }
+
+                    if (visibleCount > 0) {
+                        if (cards[activeIndex] && cards[activeIndex].style.display !== 'none') {
+                            renderDetail(activeIndex);
+                        } else {
+                            renderDetail(firstVisibleIndex);
+                        }
+                    }
                 }
+
+                triggers.forEach(function (trigger, index) {
+                    trigger.addEventListener('click', function () {
+                        renderDetail(index);
+                    });
+                });
 
                 if (countrySelect) countrySelect.addEventListener('change', updateFilters);
                 if (modalitySelect) modalitySelect.addEventListener('change', updateFilters);
 
+                renderDetail(0);
                 updateFilters();
             });
         </script>
