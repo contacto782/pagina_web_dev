@@ -135,38 +135,35 @@ $featured_services = array(
     </div>
 
     <div class="home-solutions-showcase__content">
-      <h2 class="home-solutions-showcase__title">Soluciones Integrales especializadas en Talento IT &amp; Digital</h2>
-      <p class="home-solutions-showcase__copy">En eHunting Latam conectamos a las organizaciones con talento tecnológico y digital que impulsa su transformación. Mediante un enfoque ágil y consultivo, aseguramos procesos precisos, eficientes y alineados a la cultura y objetivos de cada empresa.</p>
-      <p class="home-solutions-showcase__lead">Cuéntanos tu desafío, nosotros lo resolvemos por ti.</p>
+      <div class="home-solutions-showcase__text">
+        <h2 class="home-solutions-showcase__title">Soluciones Integrales especializadas en Talento IT &amp; Digital</h2>
+        <p class="home-solutions-showcase__copy">En eHunting Latam conectamos a las organizaciones con talento tecnológico y digital que impulsa su transformación. Mediante un enfoque ágil y consultivo, aseguramos procesos precisos, eficientes y alineados a la cultura y objetivos de cada empresa.</p>
+        <p class="home-solutions-showcase__lead">Cuéntanos tu desafío, nosotros lo resolvemos por ti.</p>
 
-      <div class="home-solutions-showcase__services">
+        <div class="home-solutions-showcase__footer">
+          <a href="/que-hacemos" class="btn home-solutions-showcase__button">Más información</a>
+        </div>
+      </div>
+
+      <div class="home-solutions-showcase__services solutions-grid">
         <?php foreach ($featured_services as $service) : ?>
-          <article class="home-solutions-showcase__service">
+          <article class="solution-card">
             <?php
             $service_image_relative = isset($service['image']) ? $service['image'] : '';
             $service_image_absolute = $service_image_relative ? trailingslashit(get_stylesheet_directory()) . ltrim($service_image_relative, '/') : '';
             $service_image_uri = $service_image_relative ? trailingslashit(get_stylesheet_directory_uri()) . ltrim($service_image_relative, '/') : '';
             $service_has_image = $service_image_relative && file_exists($service_image_absolute);
-            $service_image_class = 'home-solutions-showcase__service-image';
-
-            $service_icon_wrap_class = $service_has_image
-              ? 'home-solutions-showcase__service-icon-wrap home-solutions-showcase__service-icon-wrap--image'
-              : 'home-solutions-showcase__service-icon-wrap';
             ?>
-            <div class="<?php echo esc_attr($service_icon_wrap_class); ?>">
+            <div class="solution-card__icon">
               <?php if ($service_has_image) : ?>
-                <img src="<?php echo esc_url($service_image_uri); ?>" alt="<?php echo esc_attr($service['title']); ?>" class="<?php echo esc_attr($service_image_class); ?>" loading="lazy" decoding="async">
+                <img src="<?php echo esc_url($service_image_uri); ?>" alt="<?php echo esc_attr($service['title']); ?>" class="solution-card__image" loading="lazy" decoding="async">
               <?php else : ?>
-                <span class="home-solutions-showcase__service-icon material-icons"><?php echo esc_html($service['icon']); ?></span>
+                <span class="solution-card__material-icon material-icons"><?php echo esc_html($service['icon']); ?></span>
               <?php endif; ?>
             </div>
-            <div class="home-solutions-showcase__service-pill"><?php echo esc_html($service['title']); ?></div>
+            <h3 class="solution-card__title"><?php echo esc_html($service['title']); ?></h3>
           </article>
         <?php endforeach; ?>
-      </div>
-
-      <div class="home-solutions-showcase__footer">
-        <a href="/que-hacemos" class="btn home-solutions-showcase__button">Más información</a>
       </div>
     </div>
   </div>
@@ -379,6 +376,10 @@ $faq_items = array(
   .home-success-cases {
     position: relative;
     overflow: hidden;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
     padding: 0 !important;
     min-height: 760px;
     display: flex;
@@ -388,6 +389,8 @@ $faq_items = array(
   .home-success-cases__background {
     position: absolute;
     inset: 0;
+    width: 100vw;
+    max-width: 100vw;
     z-index: 0;
     pointer-events: none;
   }
@@ -395,7 +398,7 @@ $faq_items = array(
   .home-success-cases__background-video {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center center;
     display: block;
     filter: saturate(1.08) contrast(1.04) brightness(0.92);
@@ -682,10 +685,21 @@ $faq_items = array(
       <button class="home-testimonials__nav home-testimonials__nav--prev" type="button" aria-label="Testimonio anterior">‹</button>
       <div class="home-testimonials__viewport">
         <?php foreach ($testimonials as $index => $testimonial) : ?>
-          <article class="home-testimonials__card" data-testimonial-card data-index="<?php echo esc_attr($index); ?>">
-            <h3 class="home-testimonials__name"><?php echo esc_html($testimonial['company']); ?></h3>
-            <p class="home-testimonials__role"><?php echo esc_html($testimonial['role']); ?></p>
-            <p class="home-testimonials__quote">“<?php echo esc_html($testimonial['quote']); ?>”</p>
+          <article class="testimonial-card home-testimonials__card" data-testimonial-card data-index="<?php echo esc_attr($index); ?>">
+            <div class="quote-icon" aria-hidden="true">“</div>
+            <div class="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
+            <p class="quote-text"><?php echo esc_html($testimonial['quote']); ?></p>
+            <div class="author-profile">
+              <div class="author-info">
+                <h4><?php echo esc_html($testimonial['name']); ?></h4>
+                <span><?php echo esc_html($testimonial['role'] . ' en ' . $testimonial['company']); ?></span>
+              </div>
+              <?php if (!empty($testimonial['logo'])) : ?>
+                <img class="company-logo" src="<?php echo esc_url($testimonial['logo']); ?>" alt="<?php echo esc_attr($testimonial['company']); ?>" loading="lazy" decoding="async">
+              <?php else : ?>
+                <div class="company-logo company-logo--text"><?php echo esc_html($testimonial['company']); ?></div>
+              <?php endif; ?>
+            </div>
           </article>
         <?php endforeach; ?>
       </div>
@@ -742,7 +756,7 @@ $faq_items = array(
 
 <section id="contacto" class="home-contact-feature">
   <div class="home-section-shell">
-    <h2 class="home-contact-feature__title">¿Listo para impulsar resultados, innovar con impacto y escalar con talento?</h2>
+    <h2 class="home-contact-feature__title"><span class="home-contact-feature__title-text">¿Listo para impulsar resultados, innovar con impacto y escalar con talento?</span></h2>
     <p class="home-contact-feature__intro">El futuro digital no se improvisa. Se construye con talento.</p>
     <div class="home-contact-feature__layout">
       <div class="home-contact-feature__form-card">
@@ -771,14 +785,26 @@ $faq_items = array(
   </div>
 </section>
 
-<section class="home-faq">
-  <div class="home-section-shell home-faq__shell">
-    <h2 class="home-faq__title">Preguntas frecuentes</h2>
-    <div class="home-faq__list">
+<section class="faq-section home-faq">
+  <div class="faq-container">
+    <div class="faq-sidebar">
+      <h2 class="faq-title">
+        <span class="faq-title__word faq-title__word--orange">Respuestas</span>
+        <span class="faq-title__word faq-title__word--white">rápidas</span>
+        <span class="faq-title__word faq-title__word--gradient">para</span>
+        <span class="faq-title__word faq-title__word--orange">tu</span>
+        <span class="faq-title__word faq-title__word--white">proceso</span>
+      </h2>
+      <p>Resolvemos las dudas más frecuentes sobre nuestra metodología, tiempos, evaluación y acompañamiento en procesos de talento IT &amp; Digital.</p>
+    </div>
+    <div class="faq-accordion">
       <?php foreach ($faq_items as $faq) : ?>
-        <details class="home-faq__item">
-          <summary class="home-faq__question"><?php echo esc_html($faq['question']); ?></summary>
-          <div class="home-faq__answer">
+        <details class="faq-item home-faq__item">
+          <summary class="faq-question home-faq__question">
+            <span><?php echo esc_html($faq['question']); ?></span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer home-faq__answer">
             <p><?php echo esc_html($faq['answer']); ?></p>
           </div>
         </details>

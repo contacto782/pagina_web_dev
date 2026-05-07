@@ -8,122 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&display=swap" rel="stylesheet">
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
     <?php wp_head(); ?>
-    <style>
-        .site-header__nav {
-            height: 104px !important;
-        }
-
-        .site-header__nav .nav-wrapper,
-        .site-header__nav .contenedor-logo-menu,
-        .site-header__nav .logo-y-banderas {
-            min-height: 104px !important;
-        }
-
-        .site-header__nav .logo-y-banderas {
-            display: flex !important;
-            align-items: flex-end !important;
-            padding-top: 8px !important;
-            padding-bottom: 10px !important;
-        }
-
-        .site-header__nav .div-logo {
-            display: inline-flex !important;
-            align-items: flex-end !important;
-            height: auto !important;
-            line-height: 1 !important;
-        }
-
-        .site-header__nav .brand-logo {
-            display: inline-flex !important;
-            align-items: flex-end !important;
-            height: auto !important;
-        }
-
-        .site-header__nav .brand-logo img.logo {
-            display: block;
-            max-height: 76px;
-            width: auto;
-        }
-
-        .site-header--home .site-header__menu-row.right {
-            display: flex !important;
-            align-items: center !important;
-            position: absolute !important;
-            left: 50px !important;
-            right: auto !important;
-            bottom: 16px !important;
-            width: auto !important;
-            height: auto !important;
-            padding-top: 0 !important;
-            margin: 0 !important;
-            transform: none !important;
-            z-index: 2;
-        }
-
-        .site-header--home #menu-principal.right.hide-on-med-and-down {
-            display: flex !important;
-            align-items: center !important;
-            gap: 18px;
-            height: auto !important;
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-
-        .site-header--home #menu-principal > li {
-            display: flex !important;
-            align-items: center !important;
-            min-height: 44px !important;
-        }
-
-        .site-header--home #menu-principal > li > a,
-        .site-header--home #menu-principal > li > .dropdown-button {
-            display: inline-flex !important;
-            align-items: center !important;
-            min-height: 44px !important;
-            line-height: 1.15 !important;
-            padding: 0 12px 6px !important;
-            text-align: center;
-            white-space: nowrap;
-        }
-
-        .site-header__nav a[aria-current="true"],
-        .site-header__nav li.is-section-active > a,
-        .sidenav li.is-section-active > a,
-        .sidenav a[aria-current="true"] {
-            color: #03a9f4 !important;
-            background-color: transparent !important;
-        }
-
-        .site-header__nav li.is-section-active > a,
-        .site-header__nav a[aria-current="true"] {
-            position: relative;
-            text-shadow: none !important;
-        }
-
-        .site-header__nav li.is-section-active > a::before,
-        .site-header__nav a[aria-current="true"]::before {
-            content: "";
-            position: absolute;
-            inset: 10px 8px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, rgba(223, 113, 56, 0.16), rgba(87, 190, 205, 0.12));
-            box-shadow: 0 0 18px rgba(87, 190, 205, 0.12);
-            pointer-events: none;
-        }
-
-        .site-header__nav li.is-section-active > a::after,
-        .site-header__nav a[aria-current="true"]::after {
-            content: "";
-            position: absolute;
-            left: 18px;
-            right: 18px;
-            bottom: 8px;
-            height: 3px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, #df7138 0%, #57becd 100%);
-            pointer-events: none;
-        }
-    </style>
     <script>
         (function (w, d, s, l, i) {
             w[l] = w[l] || [];
@@ -141,18 +25,13 @@
         })(window, document, 'script', 'dataLayer', 'GTM-585LVN8');
     </script>
 </head>
-<?php
-$is_home_hero_header = ehunting_is_home_hero_template();
-$is_section_header = function_exists('ehunting_is_section_header_template') && ehunting_is_section_header_template();
-$uses_home_header_style = $is_home_hero_header || $is_section_header;
-?>
 <body <?php body_class(); ?>>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-585LVN8" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
-<header id="inicio" class="site-header<?php echo $uses_home_header_style ? ' site-header--home' : ''; ?>">
+<header id="inicio" class="site-header">
     <div class="wrapperheader">
-        <div class="top-bar white-text<?php echo $uses_home_header_style ? ' site-header__top-bar' : ''; ?>">
-            <div class="top-bar-container" style="width:100%">
+        <div class="top-bar white-text site-header__top-bar">
+            <div class="top-bar-container site-header__inner site-header__top-inner">
                 <?php include 'variables-footer.php'; ?>
                 <?php /*<a href="tel:+56 229797085"><span class="left white-text"
                         style="line-height:40px;padding:0 5px;padding-left:15px;font-size:13px;font-weight:bold">Chile: +56 229797085</span></a>
@@ -162,16 +41,15 @@ $uses_home_header_style = $is_home_hero_header || $is_section_header;
                         style="line-height:40px;padding:0 5px;padding-left:15px;font-size:13px;font-weight:bold">Per&uacute;: +51 16419213</span></a>
                         <a href="tel:+52 5584216692"><span class="left white-text"
                         style="line-height:40px;padding:0 5px;padding-left:15px;font-size:13px;font-weight:bold">M&eacute;xico: +52 5584216692</span></a> */?>
-                <div class="socialmediaheader valign-wrapper">
+                <div class="socialmediaheader site-header__socials" aria-label="Redes sociales">
                     <?php foreach (ehunting_social_links() as $social_link) : ?>
                         <?php $icon_src = !empty($social_link['src']) ? $social_link['src'] : ehunting_theme_asset($social_link['asset']); ?>
-                        <a href="<?php echo esc_url($social_link['href']); ?>" target="_blank" rel="noopener">
+                        <a href="<?php echo esc_url($social_link['href']); ?>" class="site-header__social-link" aria-label="<?php echo esc_attr($social_link['title']); ?>" <?php echo 0 === strpos($social_link['href'], 'mailto:') ? '' : 'target="_blank" rel="noopener"'; ?>>
                             <img
-                                class="lazy icono-social"
+                                class="lazy icono-social site-header__social-icon"
                                 alt="<?php echo esc_attr($social_link['alt']); ?>"
-                                title="<?php echo esc_attr('Ir a ' . $social_link['title']); ?>"
+                                title="<?php echo esc_attr($social_link['title']); ?>"
                                 src="<?php echo esc_url($icon_src); ?>"
-                                style="vertical-align:sub"
                                 width="<?php echo esc_attr($social_link['width']); ?>"
                                 <?php if (!empty($social_link['height'])) : ?>
                                     height="<?php echo esc_attr($social_link['height']); ?>"
@@ -182,21 +60,26 @@ $uses_home_header_style = $is_home_hero_header || $is_section_header;
                 </div>
             </div>
         </div>
-        <nav id="contenido-header" class="#ffffff white site-header__nav<?php echo $uses_home_header_style ? ' site-header__nav--home' : ''; ?>">
+        <nav id="contenido-header" class="#ffffff white site-header__nav">
             <div class="nav-wrapper headerSticky">
-                <div class="contenedor-logo-menu">
-                    <div class="logo-y-banderas left row" style="width:100%;margin:0!important">
-                        <span class="div-logo" style="line-height:85px;margin:0!important"><span
-                                class="brand-logo aparece-logo relative"><img class="lazy logo" alt="Logo eHunting" title="Logo eHunting"
-                                    src="https://www.ehlatam.com/wp-content/uploads/2025/04/LOGO-FINAL.png"
-                                    width="150">
-                                    <?php /*<span class="founded light" style="font-style:italic">Desde 2014</span> */ ?>
-                                    </span></span>
+                <div class="contenedor-logo-menu site-header__inner site-header__main-inner">
+                        <span class="div-logo site-header__logo">
+                            <span class="brand-logo aparece-logo relative">
+                                <?php if (function_exists('the_custom_logo') && has_custom_logo()) : ?>
+                                    <?php the_custom_logo(); ?>
+                                <?php else : ?>
+                                    <img class="lazy logo" alt="Logo eHunting" title="Logo eHunting"
+                                        src="https://www.ehlatam.com/wp-content/uploads/2025/04/LOGO-FINAL.png"
+                                        width="150">
+                                <?php endif; ?>
+                                <?php /*<span class="founded light" style="font-style:italic">Desde 2014</span> */ ?>
+                            </span>
+                        </span>
                         <a href="#" data-target="slide-out"
                             class="sidenav-trigger btn-flat btn-floating btn-large boton-redondo"
                             style="margin:15px 2% 15px 2% !important"><i
                                 class="material-icons valign-wrapper">menu</i></a>
-                        <div class="right site-header__menu-row">
+                        <div class="site-header__menu-row">
                             <?php
                     wp_nav_menu( array(
                     	// desktop menu array
@@ -222,29 +105,22 @@ $uses_home_header_style = $is_home_hero_header || $is_section_header;
     
                     ?>
                         </div>
-                    </div>
-                    <div class="banderas row left-align "
-                        style="width:auto;float:right;display:inline-block;margin-right:2%;position: relative;top: 0;">
-
-                        <?php if ($uses_home_header_style) : ?>
-                            <div class="site-header__flags-meta hide-on-med-and-down"></div>
-                        <?php else : ?>
-                            <span class="black-text hide-on-med-and-down right right-align"
-                                style="padding-left:5px;width:100%;height:30px;position:relative;right:-1%;">Organizaciones</span>
-                        <?php endif; ?>
-                        <?php foreach (ehunting_header_flags() as $flag) : ?>
-                            <div class="col l1 right">
-                                <img
-                                    class="lazy"
-                                    style="margin:0 auto;display:inline-block<?php echo 'Brasil' === $flag['title'] ? ';width:30px' : ''; ?>"
-                                    alt="<?php echo esc_attr($flag['alt']); ?>"
-                                    title="<?php echo esc_attr($flag['title']); ?>"
-                                    src="<?php echo esc_url(ehunting_theme_asset($flag['asset'])); ?>"
-                                    width="<?php echo esc_attr($flag['width']); ?>"
-                                >
+                        <div class="banderas site-header__flags" aria-label="Países">
+                            <span class="site-header__flags-label hide-on-med-and-down">Transformando Organizaciones</span>
+                            <div class="site-header__flags-list">
+                                <?php foreach (ehunting_header_flags() as $flag) : ?>
+                                    <div class="site-header__flag-item">
+                                        <img
+                                            class="lazy"
+                                            alt="<?php echo esc_attr($flag['alt']); ?>"
+                                            title="<?php echo esc_attr($flag['title']); ?>"
+                                            src="<?php echo esc_url(ehunting_theme_asset($flag['asset'])); ?>"
+                                            width="<?php echo esc_attr($flag['width']); ?>"
+                                        >
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
-                        <?php endforeach; ?>
-                    </div>
+                        </div>
                 </div>
             </div>
         </nav>

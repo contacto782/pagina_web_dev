@@ -31,7 +31,7 @@ function ehunting_social_links() {
             'height' => 25,
         ),
         array(
-            'href' => 'https://www.linkedin.com/company/ehunting-latam',
+            'href' => 'https://www.linkedin.com/company/ehunting-latam/posts/?feedView=all',
             'title' => 'LinkedIn',
             'asset' => 'images/linkedin.svg',
             'alt' => 'Logo Linkedin',
@@ -535,7 +535,7 @@ add_action('wp_enqueue_scripts', 'shapeSpace_include_custom_jquery');
 
 // Cargar los estilos y scripts del tema.
 function theme_styles() {
-    wp_enqueue_style('app-css', ehunting_theme_asset('dist/app.css'), array(), false, 'all');
+    wp_enqueue_style('app-css', ehunting_theme_asset('dist/app.css'), array(), filemtime(get_template_directory() . '/dist/app.css'), 'all');
     wp_enqueue_script('app-js', ehunting_theme_asset('dist/app.js'));
 }
 add_action('wp_enqueue_scripts', 'theme_styles');
@@ -638,6 +638,12 @@ require_once get_template_directory() . '/wp_materialize_navwalker.php';
 // Registro del menú de WordPress
 
 add_theme_support('nav-menus');
+add_theme_support('custom-logo', array(
+    'height'      => 90,
+    'width'       => 180,
+    'flex-height' => true,
+    'flex-width'  => true,
+));
 
 if (function_exists('register_nav_menus')) {
     register_nav_menus(array(

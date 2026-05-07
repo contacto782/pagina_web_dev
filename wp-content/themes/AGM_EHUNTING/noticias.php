@@ -8,16 +8,302 @@
   body.ehunting-section-header,
   body.ehunting-section-header main,
   body.ehunting-section-header #main {
+    background: #f8fafc;
+  }
+
+  .blog-page-hero {
+    display: none;
+  }
+
+  .blog-page-hero__title {
+    margin: 0 0 12px;
+    color: #091a39;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  .blog-page-hero__intro {
+    max-width: 760px;
+    margin: 0 auto;
+    color: #4a5568;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .blog-filters {
+    max-width: 1180px;
+    margin: 130px auto 34px;
+    padding: 18px 18px 16px;
+    border: 1px solid rgba(9, 26, 57, .08);
+    border-radius: 16px;
     background: #ffffff;
+    box-shadow: 0 14px 34px rgba(9, 26, 57, .08);
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) 190px auto auto;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .blog-filters__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .blog-filters__label {
+    color: #4a3a2b;
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .blog-filters__input,
+  .blog-filters__date {
+    width: 100% !important;
+    height: 44px !important;
+    margin: 0 !important;
+    border: 1px solid rgba(9, 26, 57, .12) !important;
+    border-radius: 10px !important;
+    background: #f8fafc !important;
+    color: #091a39 !important;
+    box-shadow: none !important;
+    padding: 0 14px !important;
+    font-size: 14px !important;
+  }
+
+  .blog-filters__input:focus,
+  .blog-filters__date:focus {
+    border-color: rgba(208, 90, 39, .45) !important;
+    box-shadow: 0 0 0 4px rgba(208, 90, 39, .1) !important;
+    outline: none !important;
+  }
+
+  .blog-filters__button,
+  .blog-filters__reset {
+    height: 44px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: .04em;
+    transition: background-color .25s ease, transform .25s ease, color .25s ease, border-color .25s ease;
+    cursor: pointer;
+  }
+
+  .blog-filters__button {
+    border: 0;
+    background: #d05a27;
+    color: #ffffff;
+  }
+
+  .blog-filters__reset {
+    border: 1px solid rgba(9, 26, 57, .12);
+    background: #ffffff;
+    color: #091a39;
+  }
+
+  .blog-filters__button:hover,
+  .blog-filters__button:focus,
+  .blog-filters__reset:hover,
+  .blog-filters__reset:focus {
+    transform: translateY(-2px);
+  }
+
+  .blog-filters__button:hover,
+  .blog-filters__button:focus {
+    background: #b94f22;
+    color: #ffffff;
+  }
+
+  .blog-filters__reset:hover,
+  .blog-filters__reset:focus {
+    border-color: rgba(208, 90, 39, .3);
+    color: #d05a27;
+  }
+
+  .blog-page .theme-container--full {
+    max-width: 1220px;
+    width: min(100%, 1220px);
+  }
+
+  .blog-page .theme-post-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 26px;
+    align-items: stretch;
+  }
+
+  .blog-page .theme-post-grid > .col {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    float: none !important;
+  }
+
+  .blog-page .theme-post-card--news {
+    position: relative;
+    height: 100%;
+    min-height: 520px;
+    border: 1px solid rgba(9, 26, 57, .08);
+    border-radius: 16px;
+    background: #ffffff !important;
+    box-shadow: 0 14px 34px rgba(9, 26, 57, .08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+  }
+
+  .blog-page .theme-post-card--news::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 18px;
+    right: 18px;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #d05a27 0%, #091a39 100%);
+    transform: scaleX(0);
+    transform-origin: center;
+    opacity: 0;
+    transition: transform .28s ease, opacity .28s ease;
+    z-index: 2;
+  }
+
+  .blog-page .theme-post-card--news:hover {
+    transform: translateY(-6px);
+    border-color: rgba(208, 90, 39, .22);
+    box-shadow: 0 20px 42px rgba(9, 26, 57, .13);
+  }
+
+  .blog-page .theme-post-card--news:hover::before {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  .blog-page .theme-post-card__media--news {
+    height: 230px !important;
+    min-height: 230px;
+    background-position: center !important;
+    display: block;
+    transform: scale(1);
+    transition: transform .45s ease, filter .45s ease;
+  }
+
+  .blog-page .theme-post-card--news:hover .theme-post-card__media--news {
+    transform: scale(1.07);
+    filter: saturate(1.04) contrast(1.03);
+  }
+
+  .blog-page .theme-post-card__content--news {
+    flex: 1;
+    padding: 22px 22px 20px !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-page .theme-post-card__headline {
+    margin: 0 0 12px;
+    min-height: 58px;
+    font-size: clamp(1.05rem, 1.2vw, 1.28rem);
+    line-height: 1.25;
+    font-weight: 800;
+  }
+
+  .blog-page .theme-post-card__headline a {
+    color: #091a39;
+    text-decoration: none;
+  }
+
+  .blog-page .theme-post-card__headline a:hover,
+  .blog-page .theme-post-card__headline a:focus {
+    color: #d05a27;
+  }
+
+  .blog-page .theme-post-card__excerpt {
+    flex: 1;
+    color: #4a5568;
+    font-size: 14px;
+    line-height: 1.58;
+    overflow: hidden;
+  }
+
+  .blog-page .theme-post-card__excerpt p {
+    margin: 0;
+  }
+
+  .blog-page .theme-post-card__actions {
+    margin-top: 18px;
+  }
+
+  .blog-page .theme-post-card__button--news {
+    width: fit-content;
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: rgba(208, 90, 39, .08);
+    color: #d05a27;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .05em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color .25s ease, color .25s ease, transform .25s ease;
+  }
+
+  .blog-page .theme-post-card__button--news:hover,
+  .blog-page .theme-post-card__button--news:focus {
+    background: #d05a27;
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  .blog-page .siguiente-anterior {
+    grid-column: 1 / -1;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 1024px) {
+    .blog-page .theme-post-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    .blog-page-hero {
+      margin-top: 92px;
+    }
+
+    .blog-filters {
+      grid-template-columns: 1fr;
+      margin-top: 96px;
+      gap: 12px;
+    }
+
+    .blog-filters__field {
+      gap: 6px;
+    }
+
+    .blog-page .theme-post-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
-<main>
-<?php ehunting_render_page_hero(array(
-    'title' => get_the_title(714),
-    'has_parallax' => false,
-    'tone_class' => 'theme-page-hero--brand',
-    'title_class' => 'theme-page-hero__title--news',
-)); ?>
+<main class="blog-page">
   <section id="main">
     <div class="row">
       <?php if(have_posts()) : ?><?php while(have_posts()) : the_post(); ?>      		 
@@ -30,6 +316,28 @@
 
 
     <?php endwhile; endif ?>
+    <?php
+      $blog_search = isset($_GET['blog_search']) ? sanitize_text_field(wp_unslash($_GET['blog_search'])) : '';
+      $blog_date = isset($_GET['blog_date']) ? sanitize_text_field(wp_unslash($_GET['blog_date'])) : '';
+    ?>
+    <form class="blog-filters" method="get" action="<?php echo esc_url(get_permalink()); ?>">
+      <label class="blog-filters__field">
+        <span class="blog-filters__label">Nombre</span>
+        <input class="blog-filters__input" type="search" name="blog_search" value="<?php echo esc_attr($blog_search); ?>" placeholder="Buscar artículos">
+      </label>
+      <label class="blog-filters__field">
+        <span class="blog-filters__label">Fecha</span>
+        <input class="blog-filters__date" type="month" name="blog_date" value="<?php echo esc_attr($blog_date); ?>" aria-label="Filtrar por fecha">
+      </label>
+      <div class="blog-filters__field">
+        <span class="blog-filters__label">Acción</span>
+        <button class="blog-filters__button" type="submit">Filtrar</button>
+      </div>
+      <div class="blog-filters__field">
+        <span class="blog-filters__label">&nbsp;</span>
+        <a class="blog-filters__reset" href="<?php echo esc_url(get_permalink()); ?>">Limpiar</a>
+      </div>
+    </form>
     <div class="container theme-container--full">
       <div class="col s12 m12 l12 center-align theme-post-grid theme-post-grid--spaced">      
         <?php
@@ -55,6 +363,18 @@
 					]
 				  ]
                 );
+              if ('' !== $blog_search) {
+                  $custom_args['s'] = $blog_search;
+              }
+              if (preg_match('/^\d{4}-\d{2}$/', $blog_date)) {
+                  list($filter_year, $filter_month) = array_map('intval', explode('-', $blog_date));
+                  $custom_args['date_query'] = array(
+                      array(
+                          'year' => $filter_year,
+                          'month' => $filter_month,
+                      ),
+                  );
+              }
               $custom_query = new WP_Query( $custom_args ); ?>
 
 			 <?php if ( $custom_query->have_posts() ) : ?>
@@ -74,8 +394,9 @@
                 },
             )); ?>
     <?php endwhile; ?>
+    <?php wp_reset_postdata(); ?>
     <?php else: ?>
-    <p><?php _e('No hay entradas .'); ?></p>
+    <p class="blog-empty"><?php _e('No hay artículos con esos filtros.'); ?></p>
     <?php endif; ?>
     <div class="col s12 m12 l12 center-align siguiente-anterior"><?php
         $big = 999999999; // need an unlikely integer
@@ -85,6 +406,10 @@
         	'format' => '?paged=%#%',
         	'current' => max( 1, get_query_var('paged') ),
         	'total' => $custom_query->max_num_pages,
+          'add_args' => array_filter(array(
+              'blog_search' => $blog_search,
+              'blog_date' => $blog_date,
+          )),
         	'prev_text' => '<',
             'next_text' => '>'
         ) ))); ?>   

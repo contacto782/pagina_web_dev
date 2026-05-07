@@ -130,7 +130,7 @@
         inset: auto 18px 0;
         height: 3px;
         border-radius: 999px;
-        background: linear-gradient(90deg, #df7138 0%, #57becd 100%);
+        background: linear-gradient(90deg, #d05a27 0%, #57becd 100%);
         opacity: 0.92;
     }
 
@@ -149,7 +149,8 @@
         padding: 30px 5.4vw 76px;
         color: #fff;
         background:
-            linear-gradient(135deg, rgba(18, 45, 88, 0.95) 0%, rgba(18, 31, 52, 0.88) 34%, rgba(174, 112, 55, 0.88) 58%, rgba(16, 43, 83, 0.96) 100%),
+            radial-gradient(circle at 15% 12%, rgba(87, 190, 205, 0.12), transparent 34%),
+            linear-gradient(135deg, rgba(8, 20, 38, 0.98) 0%, rgba(12, 32, 62, 0.96) 48%, rgba(9, 26, 57, 0.98) 100%),
             url("<?php echo esc_url(ehunting_theme_asset('images/borde.svg')); ?>");
         background-size: cover, 220px;
         overflow: hidden;
@@ -175,7 +176,7 @@
     .about-team__title {
         margin: 0 0 22px;
         text-align: center;
-        color: #fff;
+        color: #d05a27;
         font-size: 42px;
         font-weight: 800;
         line-height: 1.1;
@@ -187,6 +188,7 @@
         color: rgba(255, 255, 255, 0.94);
         font-size: 18px;
         line-height: 1.28;
+        text-align: center;
     }
 
     .about-team__intro p {
@@ -203,7 +205,25 @@
     }
 
     .about-team__subtitle span {
-        color: #df7138;
+        color: #d05a27;
+        background: linear-gradient(90deg, #d05a27 0%, #d05a27 36%, #57becd 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 18px rgba(87, 190, 205, 0.14);
+    }
+
+    .about-offices-section .contact-header h2 {
+        color: #d05a27;
+    }
+
+    .about-offices-section .contact-header__accent {
+        color: #d05a27;
+        background: linear-gradient(90deg, #d05a27 0%, #d05a27 36%, #57becd 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 18px rgba(87, 190, 205, 0.14);
     }
 
     .about-team__group-title {
@@ -231,53 +251,103 @@
     }
 
     .about-team__card {
-        min-height: 312px;
-        border: 2px solid rgba(40, 145, 160, 0.45);
-        border-radius: 12px;
-        background: linear-gradient(135deg, rgba(0, 18, 22, 0.92), rgba(24, 17, 34, 0.94) 55%, rgba(23, 20, 12, 0.94));
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 34px 22px 24px;
-        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
-        transition: min-height 0.25s ease, transform 0.25s ease;
+        position: relative;
+        overflow: hidden;
+        border: 0;
+        border-radius: 8px;
+        background: linear-gradient(180deg, #0a1b2e 0%, #081426 100%);
+        color: #fff;
+        box-shadow: 0 18px 42px rgba(4, 12, 24, 0.18);
+        transition: transform 0.28s ease, box-shadow 0.28s ease;
     }
 
+    .about-team__card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #d05a27 0%, #57becd 100%);
+        opacity: 0;
+        z-index: 3;
+        transition: opacity 0.28s ease;
+    }
+
+    .about-team__card:hover,
+    .about-team__card:focus-within,
     .about-team__card.is-expanded {
-        justify-content: flex-start;
-        min-height: 500px;
+        transform: translateY(-3px);
+        box-shadow: 0 24px 54px rgba(4, 12, 24, 0.24);
+    }
+
+    .about-team__card:hover::before,
+    .about-team__card:focus-within::before,
+    .about-team__card.is-expanded::before {
+        opacity: 1;
+    }
+
+    .about-team__photo-wrap {
+        position: relative;
+        min-height: 360px;
+        overflow: hidden;
+        background: #eef2f7;
     }
 
     .about-team__photo {
-        width: 132px;
-        height: 132px;
-        border-radius: 50%;
+        display: block;
+        width: 100%;
+        height: 360px;
         object-fit: cover;
+        object-position: center top;
         background: #fff;
-        margin-bottom: 24px;
+        transform: scale(1);
+        transition: transform 0.45s ease;
+    }
+
+    .about-team__card:hover .about-team__photo,
+    .about-team__card:focus-within .about-team__photo {
+        transform: scale(1.06);
+    }
+
+    .about-team__photo-overlay {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 84px 22px 24px;
+        background: linear-gradient(180deg, rgba(10, 27, 46, 0) 0%, rgba(10, 27, 46, 0.82) 58%, rgba(10, 27, 46, 0.96) 100%);
+        z-index: 2;
     }
 
     .about-team__photo--marcela {
-        object-position: center 18%;
+        object-position: center 6%;
     }
 
     .about-team__name {
-        margin: 0 0 10px;
-        color: rgba(255, 255, 255, 0.88);
-        font-size: 20px;
-        line-height: 1.2;
+        margin: 0 0 8px;
+        color: #fff;
+        font-size: clamp(26px, 2.6vw, 34px);
+        line-height: 1.05;
         font-weight: 800;
+        text-align: center;
     }
 
     .about-team__role {
-        min-height: 36px;
-        margin: 0 0 18px;
-        color: rgba(255, 255, 255, 0.68);
+        min-height: 0;
+        margin: 0;
+        color: #d05a27;
         font-size: 14px;
         line-height: 1.25;
-        font-weight: 700;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .about-team__body {
+        padding: 22px 22px 24px;
+        background: #fff;
     }
 
     .about-team__bio {
@@ -285,17 +355,17 @@
         opacity: 0;
         overflow: hidden;
         margin: 0;
-        color: rgba(255, 255, 255, 0.82);
+        color: #475569;
         font-size: 14px;
-        line-height: 1.42;
-        text-align: left;
+        line-height: 1.55;
+        text-align: center;
         transition: max-height 0.25s ease, opacity 0.2s ease, margin 0.25s ease;
     }
 
     .about-team__card.is-expanded .about-team__bio {
-        max-height: 360px;
+        max-height: 420px;
         opacity: 1;
-        margin: 0 0 18px;
+        margin: 0 0 20px;
         overflow-y: auto;
     }
 
@@ -305,21 +375,25 @@
         justify-content: center;
         min-width: 94px;
         height: 36px;
-        border: 2px solid #268fa6;
-        border-radius: 8px;
-        color: #35a8bf;
+        border: 2px solid #d05a27;
+        border-radius: 999px;
+        color: #d05a27;
         font-size: 14px;
         font-weight: 800;
+        letter-spacing: 0.08em;
         text-decoration: none;
         background: transparent;
         cursor: pointer;
+        text-transform: uppercase;
+        transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
     }
 
     .about-team__button:hover,
     .about-team__button:focus {
         color: #fff;
-        background: #268fa6;
+        background: #d05a27;
         text-decoration: none;
+        transform: translateY(-1px);
     }
 
     @media (max-width: 1024px) {
@@ -471,7 +545,7 @@ $about_team_members = array(
 
 <section class="about-team" aria-labelledby="about-team-title">
     <div class="about-team__inner">
-        <h2 id="about-team-title" class="about-team__title">Equipo</h2>
+        <h2 id="about-team-title" class="about-team__title">Nuestro Equipo</h2>
         <div class="about-team__intro">
             <p>Nuestro equipo está conformado por especialistas en talento digital y reclutamiento tecnológico, combinando experiencia, pasión por la innovación y una visión alineada con la evolución del mercado digital en Latinoamérica.</p>
             <p>No provenimos del reclutamiento tradicional, sino del entendimiento de cómo la innovación impacta en las organizaciones y en sus resultados. Contamos con sólida trayectoria en selección de perfiles especializados, respaldada por una red activa en el ecosistema regional que nos permite identificar y atraer profesionales altamente demandados con precisión y agilidad.</p>
@@ -484,11 +558,17 @@ $about_team_members = array(
             <?php foreach ($about_team_members as $member) : ?>
                 <article class="about-team__card">
                     <?php $photo_class = 'Marcela Albarracín' === $member['name'] ? ' about-team__photo--marcela' : ''; ?>
-                    <img class="about-team__photo<?php echo esc_attr($photo_class); ?>" src="<?php echo esc_url($member['image']); ?>" alt="<?php echo esc_attr($member['name']); ?>" loading="lazy" decoding="async">
-                    <h4 class="about-team__name"><?php echo esc_html($member['name']); ?></h4>
-                    <p class="about-team__role"><?php echo esc_html($member['role']); ?></p>
-                    <p class="about-team__bio"><?php echo esc_html($member['bio']); ?></p>
-                    <button class="about-team__button" type="button" aria-expanded="false">Ver más</button>
+                    <div class="about-team__photo-wrap">
+                        <img class="about-team__photo<?php echo esc_attr($photo_class); ?>" src="<?php echo esc_url($member['image']); ?>" alt="<?php echo esc_attr($member['name']); ?>" loading="lazy" decoding="async">
+                        <div class="about-team__photo-overlay">
+                            <h4 class="about-team__name"><?php echo esc_html($member['name']); ?></h4>
+                            <p class="about-team__role"><?php echo esc_html($member['role']); ?></p>
+                        </div>
+                    </div>
+                    <div class="about-team__body">
+                        <p class="about-team__bio"><?php echo esc_html($member['bio']); ?></p>
+                        <button class="about-team__button" type="button" aria-expanded="false">Ver más</button>
+                    </div>
                 </article>
             <?php endforeach; ?>
         </div>

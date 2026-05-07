@@ -91,6 +91,28 @@ function get_job_card($cargo, $oferta, $mision, $requisitos, $modalidad, $benefi
     </div>";
 }
 
+function ehunting_job_list_markup($content) {
+    $content = html_entity_decode((string) $content, ENT_QUOTES, 'UTF-8');
+    $content = str_replace(["\r\n", "\r", '<br>', '<br/>', '<br />'], "\n", $content);
+    $content = wp_strip_all_tags($content);
+    $items = preg_split('/[\n;•·]+/', $content);
+    $markup = '<ul class="job-detail__list">';
+
+    foreach ($items as $item) {
+        $item = trim($item, " \t\n\r\0\x0B-");
+        if ('' === $item) {
+            continue;
+        }
+        $markup .= '<li>' . esc_html($item) . '</li>';
+    }
+
+    if ('<ul class="job-detail__list">' === $markup) {
+        $markup .= '<li>Te compartiremos más detalles durante el proceso de postulación.</li>';
+    }
+
+    return $markup . '</ul>';
+}
+
 get_header(); 
 
 /* -------------------------------------------------
@@ -176,7 +198,7 @@ if ($json && is_array($json)) {
 
         $isRemote = (strpos($modalidad, 'remoto') !== false || strpos($modalidad, 'remote') !== false);
 
-        $applyUrl = 'mailto:postula@ehunting.cl?subject=Postulación: ' . rawurlencode($cargo);
+        $applyUrl = 'mailto:contacto@ehlatam.com?subject=' . rawurlencode('Postulacion: ' . $cargo);
         $jobId    = substr(sha1($cargo.$pais.$ciudad.$validThrough), 0, 16);
 
         $job = [
@@ -770,6 +792,653 @@ if ($json && is_array($json)) {
             font-size: 24px;
         }
     }
+
+    /* Vacantes modernizadas: marca eHunting + tabs */
+    :root {
+        --eh-orange: #d05a27;
+        --eh-dark-blue: #091a39;
+        --eh-text-body: #4a5568;
+        --eh-light-bg: #f8fafc;
+    }
+
+    body.ehunting-section-header,
+    body {
+        background: var(--eh-light-bg) !important;
+    }
+
+    .page-header::before {
+        background: var(--eh-orange) !important;
+    }
+
+    .page-title,
+    .page-title strong,
+    .jobs-filter__label,
+    .jobs-results {
+        color: var(--eh-dark-blue) !important;
+    }
+
+    .page-subtitle,
+    .jobs-empty {
+        color: var(--eh-text-body) !important;
+    }
+
+    .jobs-toolbar {
+        border-color: rgba(9, 26, 57, 0.08) !important;
+        background: rgba(255, 255, 255, 0.88) !important;
+        box-shadow: 0 14px 34px rgba(9, 26, 57, 0.08) !important;
+    }
+
+    .jobs-filter__select {
+        border-color: rgba(9, 26, 57, 0.14) !important;
+        color: var(--eh-dark-blue) !important;
+        background-color: #fff !important;
+        background-image:
+            linear-gradient(45deg, transparent 50%, var(--eh-orange) 50%),
+            linear-gradient(135deg, var(--eh-orange) 50%, transparent 50%) !important;
+    }
+
+    .jobs-filter__select:focus {
+        border-color: rgba(208, 90, 39, 0.55) !important;
+        box-shadow: 0 0 0 4px rgba(208, 90, 39, 0.12) !important;
+    }
+
+    .jobs-grid::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, rgba(208, 90, 39, 0.3), rgba(208, 90, 39, 0.82)) !important;
+    }
+
+    .job-card {
+        padding: 19px 18px 18px 22px !important;
+        border: 1px solid rgba(9, 26, 57, 0.08) !important;
+        border-radius: 14px !important;
+        background: #fff !important;
+        box-shadow: 0 10px 28px rgba(9, 26, 57, 0.07) !important;
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease !important;
+    }
+
+    .job-card::before {
+        top: 0 !important;
+        left: 0 !important;
+        right: auto !important;
+        width: 4px !important;
+        height: 100% !important;
+        border-radius: 14px 0 0 14px !important;
+        background: var(--eh-orange) !important;
+        opacity: 0 !important;
+        transition: opacity 0.25s ease !important;
+    }
+
+    .job-card::after {
+        display: none !important;
+    }
+
+    .job-card:hover,
+    .job-card.is-active {
+        transform: translateY(-2px) !important;
+        border-color: rgba(208, 90, 39, 0.22) !important;
+        box-shadow: 0 16px 34px rgba(9, 26, 57, 0.12) !important;
+    }
+
+    .job-card.is-active::before {
+        opacity: 1 !important;
+    }
+
+    .job-card__eyebrow {
+        width: fit-content;
+        min-height: 28px;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 6px 11px;
+        border: 1px solid rgba(208, 90, 39, 0.16);
+        border-radius: 999px;
+        background: rgba(208, 90, 39, 0.08);
+        color: var(--eh-orange) !important;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.75);
+    }
+
+    .job-card__eyebrow::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--eh-orange);
+        box-shadow: 0 0 0 4px rgba(208, 90, 39, 0.12);
+    }
+
+    .job-card__title {
+        color: var(--eh-dark-blue) !important;
+        font-weight: 700 !important;
+        border-bottom-color: rgba(9, 26, 57, 0.08) !important;
+    }
+
+    .job-card__tag {
+        min-height: 30px !important;
+        border: 1px solid rgba(208, 90, 39, 0.1) !important;
+        border-radius: 20px !important;
+        background: #f3f4f6 !important;
+        color: var(--eh-orange) !important;
+        padding: 6px 12px !important;
+        font-weight: 600 !important;
+    }
+
+    .job-card__description {
+        border-color: rgba(9, 26, 57, 0.07) !important;
+        background: #f8fafc !important;
+        color: var(--eh-text-body) !important;
+    }
+
+    .job-card__hint {
+        width: fit-content !important;
+        min-height: 34px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin-top: 2px !important;
+        padding: 0 14px !important;
+        border: 1px solid rgba(9, 26, 57, .12) !important;
+        border-radius: 999px !important;
+        background: #ffffff !important;
+        color: var(--eh-dark-blue) !important;
+        font-size: 11px !important;
+        line-height: 1 !important;
+        letter-spacing: .07em !important;
+        box-shadow: 0 8px 18px rgba(9,26,57,.06) !important;
+        cursor: pointer !important;
+        transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease !important;
+    }
+
+    .job-card:hover .job-card__hint,
+    .job-card.is-active .job-card__hint {
+        color: var(--eh-orange) !important;
+        border-color: rgba(208, 90, 39, .28) !important;
+        background: rgba(208, 90, 39, .06) !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 10px 20px rgba(208,90,39,.1) !important;
+    }
+
+    .job-card,
+    .job-card *,
+    .job-card__hint,
+    .job-card:hover .job-card__hint {
+        cursor: pointer !important;
+    }
+
+    .job-detail {
+        min-height: 78vh !important;
+        border: 1px solid rgba(9, 26, 57, 0.08) !important;
+        border-radius: 18px !important;
+        background: #fff !important;
+        box-shadow: 0 18px 48px rgba(9, 26, 57, 0.11) !important;
+    }
+
+    .job-detail__eyebrow {
+        width: fit-content;
+        min-height: 30px;
+        display: inline-flex !important;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border: 1px solid rgba(208, 90, 39, 0.16);
+        border-radius: 999px;
+        background: rgba(208, 90, 39, 0.08);
+        color: var(--eh-orange) !important;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.75);
+    }
+
+    .job-detail__eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--eh-orange);
+        box-shadow: 0 0 0 4px rgba(208, 90, 39, 0.12);
+    }
+
+    .job-detail__title {
+        color: var(--eh-dark-blue) !important;
+        font-size: clamp(28px, 2.7vw, 44px) !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.02em !important;
+    }
+
+    .job-tabs-nav {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin: 24px 0 0;
+        padding: 0;
+        list-style: none;
+        border-bottom: 1px solid rgba(9, 26, 57, 0.1);
+        overflow-x: auto;
+    }
+
+    .job-tabs-nav li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex: 0 0 auto;
+    }
+
+    .job-tabs-nav a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 52px;
+        padding: 15px 20px;
+        border-bottom: 2px solid transparent;
+        color: #64748b;
+        text-decoration: none;
+        font-size: 15px;
+        line-height: 1;
+        font-weight: 700;
+        transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+    }
+
+    .job-tabs-nav a:hover,
+    .job-tabs-nav a.active {
+        color: var(--eh-orange);
+        border-bottom-color: var(--eh-orange);
+        background: rgba(208, 90, 39, 0.04);
+    }
+
+    .job-tabs-content {
+        padding: 30px 0 0;
+    }
+
+    .tab-pane {
+        display: none;
+        animation: jobTabFade 0.24s ease both;
+    }
+
+    .tab-pane.active {
+        display: block;
+    }
+
+    @keyframes jobTabFade {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .job-detail__section + .job-detail__section {
+        margin-top: 26px !important;
+    }
+
+    .job-detail__section-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--eh-dark-blue) !important;
+        font-size: 20px !important;
+        font-weight: 800 !important;
+    }
+
+    .job-detail__section-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: rgba(208, 90, 39, 0.1);
+        color: var(--eh-orange);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        line-height: 1;
+        flex: 0 0 26px;
+    }
+
+    .job-detail__copy {
+        color: var(--eh-text-body) !important;
+        line-height: 1.7 !important;
+    }
+
+    .job-detail__list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        color: var(--eh-text-body);
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    .job-detail__list li {
+        position: relative;
+        padding-left: 30px;
+        margin: 0 0 13px;
+    }
+
+    .job-detail__list li::before {
+        content: "✓";
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: var(--eh-orange);
+        font-weight: 900;
+    }
+
+    .job-detail__apply.btn-postular,
+    .job-detail__apply.btn-postular:hover,
+    .job-detail__apply.btn-postular:focus {
+        display: flex !important;
+        width: 100% !important;
+        min-height: 58px !important;
+        margin-top: 40px !important;
+        padding: 18px !important;
+        border-radius: 8px !important;
+        background: var(--eh-orange) !important;
+        color: #fff !important;
+        text-align: center !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+        box-shadow: 0 14px 30px rgba(208, 90, 39, 0.24) !important;
+        transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.25s ease !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+
+    .job-detail__apply.btn-postular::before {
+        content: "" !important;
+        display: block !important;
+        position: absolute !important;
+        inset: 0 !important;
+        border-radius: inherit !important;
+        background: linear-gradient(110deg, transparent 0 32%, rgba(255,255,255,.28) 50%, transparent 68% 100%) !important;
+        transform: translateX(-120%) !important;
+        transition: transform 0.55s ease !important;
+        pointer-events: none !important;
+    }
+
+    .job-detail__apply.btn-postular:hover,
+    .job-detail__apply.btn-postular:focus {
+        background: #b94f22 !important;
+        transform: translateY(-3px) scale(1.015) !important;
+        box-shadow: 0 20px 38px rgba(208, 90, 39, 0.34) !important;
+    }
+
+    .job-detail__apply.btn-postular:hover::before,
+    .job-detail__apply.btn-postular:focus::before {
+        transform: translateX(120%) !important;
+    }
+
+    @media (max-width: 720px) {
+        .job-tabs-nav a {
+            padding: 14px 13px;
+            font-size: 13px;
+        }
+
+        .job-tabs-content {
+            padding-top: 22px;
+        }
+    }
+
+    /* Vacantes: panel derecho compacto sin scroll largo */
+    .jobs-layout {
+        grid-template-columns: minmax(300px, 390px) minmax(420px, 1fr) !important;
+    }
+
+    .job-detail {
+        min-height: 0 !important;
+        padding: 30px 30px 28px !important;
+        position: sticky;
+        top: 122px;
+    }
+
+    .job-detail__inner {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    .job-detail__eyebrow {
+        margin-bottom: 10px !important;
+    }
+
+    .job-detail__title {
+        margin-bottom: 16px !important;
+        font-size: clamp(24px, 2.2vw, 34px) !important;
+        line-height: 1.12 !important;
+    }
+
+    .job-detail__meta {
+        margin-bottom: 22px !important;
+    }
+
+    .job-detail__section--requirements {
+        padding: 22px 20px;
+        border: 1px solid rgba(9, 26, 57, 0.08);
+        border-radius: 14px;
+        background: #f8fafc;
+    }
+
+    .job-detail__section-title {
+        margin-bottom: 16px !important;
+        font-size: 18px !important;
+    }
+
+    .job-detail__list {
+        max-height: 310px;
+        overflow-y: auto;
+        padding-right: 8px !important;
+        font-size: 15px !important;
+        line-height: 1.55 !important;
+    }
+
+    .job-detail__list::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .job-detail__list::-webkit-scrollbar-thumb {
+        border-radius: 999px;
+        background: rgba(208, 90, 39, 0.55);
+    }
+
+    .job-detail__list li {
+        margin-bottom: 9px !important;
+    }
+
+    .job-detail__apply.btn-postular,
+    .job-detail__apply.btn-postular:hover,
+    .job-detail__apply.btn-postular:focus {
+        margin-top: 24px !important;
+        min-height: 54px !important;
+    }
+
+    @media (max-width: 900px) {
+        .jobs-layout {
+            grid-template-columns: 1fr !important;
+        }
+
+        .job-detail {
+            position: static;
+        }
+
+        .job-detail__list {
+            max-height: none;
+            overflow: visible;
+        }
+    }
+
+    /* Overrides finales del panel derecho */
+    aside.job-detail article.job-detail__inner > .job-detail__eyebrow {
+        width: fit-content !important;
+        min-height: 32px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        margin: 0 0 18px !important;
+        padding: 7px 13px !important;
+        border: 1px solid rgba(208, 90, 39, 0.2) !important;
+        border-radius: 999px !important;
+        background: rgba(208, 90, 39, 0.09) !important;
+        color: #d05a27 !important;
+        font-size: 12px !important;
+        line-height: 1 !important;
+        font-weight: 800 !important;
+        letter-spacing: .1em !important;
+        text-transform: uppercase !important;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.78), 0 8px 20px rgba(208,90,39,.08) !important;
+    }
+
+    aside.job-detail article.job-detail__inner > .job-detail__eyebrow::before {
+        content: "" !important;
+        width: 8px !important;
+        height: 8px !important;
+        display: block !important;
+        border-radius: 50% !important;
+        background: #d05a27 !important;
+        box-shadow: 0 0 0 4px rgba(208,90,39,.14) !important;
+        flex: 0 0 8px !important;
+    }
+
+    aside.job-detail a.job-detail__apply.btn-postular {
+        width: fit-content !important;
+        min-width: 168px !important;
+        min-height: 44px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 22px 0 0 !important;
+        padding: 0 22px !important;
+        border: 0 !important;
+        border-radius: 10px !important;
+        background: #d05a27 !important;
+        color: #ffffff !important;
+        text-decoration: none !important;
+        text-align: center !important;
+        font-size: 12px !important;
+        line-height: 1 !important;
+        font-weight: 800 !important;
+        letter-spacing: .08em !important;
+        text-transform: uppercase !important;
+        box-shadow: 0 10px 22px rgba(208,90,39,.22) !important;
+        transform: translateY(0) scale(1) !important;
+        transition: background-color .3s ease, transform .25s ease, box-shadow .25s ease !important;
+        overflow: hidden !important;
+    }
+
+    aside.job-detail a.job-detail__apply.btn-postular:hover,
+    aside.job-detail a.job-detail__apply.btn-postular:focus {
+        background: #b94f22 !important;
+        color: #ffffff !important;
+        transform: translateY(-2px) scale(1.015) !important;
+        box-shadow: 0 15px 28px rgba(208,90,39,.3) !important;
+    }
+
+    aside.job-detail a.job-detail__apply.btn-postular::after {
+        content: "↗" !important;
+        margin-left: 10px !important;
+        position: relative !important;
+        color: currentColor !important;
+    }
+
+    /* Estado y CTA del detalle seleccionado */
+    .job-detail .job-status-pill {
+        width: fit-content !important;
+        min-height: 34px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 9px !important;
+        margin: 0 0 22px !important;
+        padding: 8px 14px !important;
+        border: 1px solid rgba(208, 90, 39, .22) !important;
+        border-radius: 999px !important;
+        background: rgba(208, 90, 39, .1) !important;
+        color: #d05a27 !important;
+        font-size: 12px !important;
+        line-height: 1 !important;
+        font-weight: 800 !important;
+        letter-spacing: .1em !important;
+        text-transform: uppercase !important;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 10px 22px rgba(208,90,39,.08) !important;
+    }
+
+    .job-detail .job-status-pill::before {
+        content: none !important;
+    }
+
+    .job-detail .job-status-pill__dot {
+        width: 8px !important;
+        height: 8px !important;
+        display: inline-block !important;
+        border-radius: 50% !important;
+        background: #d05a27 !important;
+        box-shadow: 0 0 0 4px rgba(208,90,39,.14) !important;
+        flex: 0 0 8px !important;
+    }
+
+    .job-detail .job-apply-button,
+    .job-detail .job-apply-button:visited {
+        width: min(100%, 360px) !important;
+        min-height: 58px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        margin: 28px 0 0 !important;
+        padding: 0 30px !important;
+        border: 0 !important;
+        border-radius: 12px !important;
+        background: #d05a27 !important;
+        color: #ffffff !important;
+        text-decoration: none !important;
+        text-align: center !important;
+        font-size: 14px !important;
+        line-height: 1 !important;
+        font-weight: 900 !important;
+        letter-spacing: .09em !important;
+        text-transform: uppercase !important;
+        box-shadow: 0 15px 30px rgba(208,90,39,.28) !important;
+        transform: translateY(0) scale(1) !important;
+        transition: background-color .3s ease, transform .25s ease, box-shadow .25s ease !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+
+    .job-detail .job-apply-button span {
+        position: relative !important;
+        z-index: 2 !important;
+        color: #ffffff !important;
+    }
+
+    .job-detail .job-apply-button::before {
+        content: "" !important;
+        position: absolute !important;
+        inset: 0 !important;
+        display: block !important;
+        background: linear-gradient(110deg, transparent 0 32%, rgba(255,255,255,.28) 50%, transparent 68% 100%) !important;
+        transform: translateX(-120%) !important;
+        transition: transform .55s ease !important;
+    }
+
+    .job-detail .job-apply-button::after {
+        content: "↗" !important;
+        position: relative !important;
+        z-index: 2 !important;
+        color: #ffffff !important;
+        font-size: 15px !important;
+        line-height: 1 !important;
+        margin-left: 0 !important;
+    }
+
+    .job-detail .job-apply-button:hover,
+    .job-detail .job-apply-button:focus {
+        background: #b94f22 !important;
+        color: #ffffff !important;
+        transform: translateY(-3px) scale(1.02) !important;
+        box-shadow: 0 22px 40px rgba(208,90,39,.36) !important;
+    }
+
+    .job-detail .job-apply-button:hover::before,
+    .job-detail .job-apply-button:focus::before {
+        transform: translateX(120%) !important;
+    }
 </style>
 
 <?php
@@ -990,7 +1659,7 @@ if($json) {
             "contactPoint": {
                 "@type": "ContactPoint",
                 "contactType": "Recruitment",
-                "email": "postula@ehunting.cl",
+                "email": "contacto@ehlatam.com",
                 "availableLanguage": ["Spanish", "English", "Portuguese"]
             }
         }
@@ -1043,11 +1712,15 @@ if($json) {
     $job_details_markup = '';
     foreach($json as $key => $value) {
         $cargo      = htmlspecialchars($json[$key]['cargo'], ENT_QUOTES, 'UTF-8');
-        $oferta     = strip_tags(preg_replace("/;/", ",", $json[$key]['oferta']));
-        $mision     = nl2br(htmlspecialchars(preg_replace("/;/", ",", $json[$key]['mision']), ENT_QUOTES, 'UTF-8'));
-        $requisitos = nl2br(htmlspecialchars(preg_replace("/;/", ",", $json[$key]['requisitos']), ENT_QUOTES, 'UTF-8'));
+        $oferta_raw = preg_replace("/;/", "\n", (string) $json[$key]['oferta']);
+        $mision_raw = preg_replace("/;/", "\n", (string) $json[$key]['mision']);
+        $requisitos_raw = preg_replace("/;/", "\n", (string) $json[$key]['requisitos']);
+        $beneficios_raw = preg_replace("/;/", "\n", (string) $json[$key]['beneficios']);
+        $oferta     = trim(wp_strip_all_tags($oferta_raw));
+        $mision     = nl2br(htmlspecialchars($mision_raw, ENT_QUOTES, 'UTF-8'));
+        $requisitos = nl2br(htmlspecialchars($requisitos_raw, ENT_QUOTES, 'UTF-8'));
         $modalidad  = htmlspecialchars(preg_replace("/;/", ",", $json[$key]['modalidad']), ENT_QUOTES, 'UTF-8');
-        $beneficios = nl2br(htmlspecialchars(preg_replace("/;/", ",", $json[$key]['beneficios']), ENT_QUOTES, 'UTF-8'));
+        $beneficios = nl2br(htmlspecialchars($beneficios_raw, ENT_QUOTES, 'UTF-8'));
         $pais       = isset($json[$key]['pais']) ? htmlspecialchars($json[$key]['pais'], ENT_QUOTES, 'UTF-8') : 'Chile';
         $ciudad     = isset($json[$key]['ciudad']) ? htmlspecialchars($json[$key]['ciudad'], ENT_QUOTES, 'UTF-8') : '';
 
@@ -1058,30 +1731,18 @@ if($json) {
         echo get_job_card($cargo, $summary, $mision, $requisitos, $modalidad, $beneficios, $pais, $ciudad);
 
         $job_details_markup .= '
-            <article class=\"job-detail__inner\" id=\"' . esc_attr($job_id) . '\" data-job-detail' . (0 === $key ? '' : ' hidden') . '>
-                <div class=\"job-detail__eyebrow\">Vacante activa</div>
-                <h2 class=\"job-detail__title\">' . $cargo . '</h2>
-                <div class=\"job-detail__meta\">
-                    <span class=\"job-card__tag\">' . esc_html($location_label) . '</span>
-                    <span class=\"job-card__tag\">' . esc_html($modalidad) . '</span>
+            <article class="job-detail__inner" id="' . esc_attr($job_id) . '" data-job-detail' . (0 === $key ? '' : ' hidden') . '>
+                <div class="job-detail__eyebrow job-status-pill"><span class="job-status-pill__dot" aria-hidden="true"></span>Vacante activa</div>
+                <h2 class="job-detail__title">' . $cargo . '</h2>
+                <div class="job-detail__meta">
+                    <span class="job-card__tag">' . esc_html($location_label) . '</span>
+                    <span class="job-card__tag">' . esc_html($modalidad) . '</span>
                 </div>
-                <section class=\"job-detail__section\">
-                    <h3 class=\"job-detail__section-title\">Oferta</h3>
-                    <div class=\"job-detail__copy\"><p>' . esc_html($oferta ?: 'Conoce los detalles de esta oportunidad y postula para avanzar en tu carrera digital.') . '</p></div>
+                <section class="job-detail__section job-detail__section--requirements">
+                    <h3 class="job-detail__section-title"><span class="job-detail__section-icon" aria-hidden="true">✓</span>Requisitos</h3>
+                    ' . ehunting_job_list_markup($requisitos_raw) . '
                 </section>
-                <section class=\"job-detail__section\">
-                    <h3 class=\"job-detail__section-title\">Misión</h3>
-                    <div class=\"job-detail__copy\">' . wp_kses_post(wpautop($mision)) . '</div>
-                </section>
-                <section class=\"job-detail__section\">
-                    <h3 class=\"job-detail__section-title\">Requisitos</h3>
-                    <div class=\"job-detail__copy\">' . wp_kses_post(wpautop($requisitos)) . '</div>
-                </section>
-                <section class=\"job-detail__section\">
-                    <h3 class=\"job-detail__section-title\">Beneficios</h3>
-                    <div class=\"job-detail__copy\">' . wp_kses_post(wpautop($beneficios)) . '</div>
-                </section>
-                <a class=\"job-detail__apply\" href=\"mailto:postula@ehunting.cl?subject=Postulación: ' . rawurlencode(html_entity_decode($cargo, ENT_QUOTES, 'UTF-8')) . '\">Postular</a>
+                <a class="job-detail__apply btn-postular job-apply-button" href="mailto:contacto@ehlatam.com?subject=' . rawurlencode('Postulacion: ' . html_entity_decode($cargo, ENT_QUOTES, 'UTF-8')) . '">Postular</a>
             </article>';
     }
 
@@ -1159,6 +1820,29 @@ if($json) {
                 triggers.forEach(function (trigger, index) {
                     trigger.addEventListener('click', function () {
                         renderDetail(index);
+                    });
+                });
+
+                document.querySelectorAll('[data-job-detail]').forEach(function (detail) {
+                    const tabs = Array.from(detail.querySelectorAll('.job-tabs-nav a'));
+                    const panes = Array.from(detail.querySelectorAll('.tab-pane'));
+
+                    tabs.forEach(function (tab) {
+                        tab.addEventListener('click', function (event) {
+                            event.preventDefault();
+                            const target = detail.querySelector(tab.getAttribute('href'));
+                            if (!target) return;
+
+                            tabs.forEach(function (item) {
+                                const isActive = item === tab;
+                                item.classList.toggle('active', isActive);
+                                item.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                            });
+
+                            panes.forEach(function (pane) {
+                                pane.classList.toggle('active', pane === target);
+                            });
+                        });
                     });
                 });
 
